@@ -6,11 +6,11 @@ import com.guidelk.tourism.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>, EntityGraphJpaRepository<User, Integer>, EntityGraphQuerydslPredicateExecutor<User> {
-    User findByUserNameIgnoreCase(String userName);
+    User findByUserNameIgnoreCaseAndStatusNot(String userName, Integer status);
 
-    User findByEmailIgnoreCase(String email);
+    User findByEmailIgnoreCaseAndStatusNot(String email, Integer status);
+
+    User findByUserNameIgnoreCase(String userName);
 }

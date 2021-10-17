@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public ResponseEntity createUser(User user) {
         ResponseEntity responseEntity;
-        User dbUser = this.userRepository.findByUserNameIgnoreCase(user.getUserName());
-        User dbUserEmail = this.userRepository.findByEmailIgnoreCase(user.getEmail());
+        User dbUser = this.userRepository.findByUserNameIgnoreCaseAndStatusNot(user.getUserName(), MasterDataStatus.DELETED.getStatusSeq());
+        User dbUserEmail = this.userRepository.findByEmailIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
         if (dbUser != null) {
             responseEntity = new ResponseEntity<>("Username already exist", HttpStatus.BAD_REQUEST);
         } else if (dbUserEmail != null) {
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
             String password = "{bcrypt}" + BCrypt.hashpw(originalPassword, BCrypt.gensalt());
             user.setPassword(password);
             user.setUserName(user.getUserName().trim());
-            user.setStatus(MasterDataStatus.APPROVED.getStatusSeq());
+            user.setEmail(user.getEmail().toLowerCase().trim());
             this.userRepository.save(user);
             responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
         }
@@ -48,18 +49,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public ResponseEntity updateUser(User user) {
         ResponseEntity responseEntity;
-        User dbUser = this.userRepository.findByUserNameIgnoreCase(user.getUserName());
-        if (dbUser.equals(user)) {
-            responseEntity = new ResponseEntity<>(dbUser, HttpStatus.NOT_MODIFIED);
+        Optional<User> dbUser = this.userRepository.findById(user.getUserId());
+        if (!dbUser.get().getEmail().equals(user.getEmail())) {
+            User dbUserEmailValidation = this.userRepository.findByEmailIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
+            if (dbUserEmailValidation != null) {
+                responseEntity = new ResponseEntity<>("Email already exist", HttpStatus.BAD_REQUEST);
+            } else {
+                dbUser.get().setEmail(user.getEmail().toLowerCase().trim());
+                this.userRepository.save(dbUser.get());
+                responseEntity = new ResponseEntity<>(dbUser.get(), HttpStatus.CREATED);
+            }
         } else {
-            String originalPassword = user.getPassword().trim();
-            String password = "{bcrypt}" + BCrypt.hashpw(originalPassword, BCrypt.gensalt());
-            dbUser.setPassword(password);
-            dbUser.setEmail(user.getEmail());
-            dbUser.setMobileNo(user.getMobileNo());
-            responseEntity = new ResponseEntity<>(dbUser, HttpStatus.CREATED);
+            dbUser.get().setEmail(user.getEmail().toLowerCase().trim());
+            this.userRepository.save(dbUser.get());
+            responseEntity = new ResponseEntity<>(dbUser.get(), HttpStatus.CREATED);
         }
-
         return responseEntity;
     }
 }

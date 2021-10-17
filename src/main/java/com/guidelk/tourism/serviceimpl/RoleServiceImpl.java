@@ -55,11 +55,19 @@ public class RoleServiceImpl implements RoleService {
             if (dbRole.get().equals(role)) {
                 responseEntity = new ResponseEntity<>(dbRole.get(), HttpStatus.NOT_MODIFIED);
             } else {
-                dbRole.get().setRoleName(role.getRoleName());
-                dbRole.get().setRoleDescription(role.getRoleDescription());
-                dbRole.get().setStatus(role.getStatus());
-                this.roleRepository.save(dbRole.get());
-                responseEntity = new ResponseEntity<>(dbRole.get(), HttpStatus.CREATED);
+                if (!dbRole.get().getRoleName().equals(role.getRoleName())) {
+                    Role dbRoleNameValidation = this.roleRepository.findByRoleNameAndStatusNot(role.getRoleName(), MasterDataStatus.DELETED.getStatusSeq());
+                    if (dbRoleNameValidation != null) {
+                        responseEntity = new ResponseEntity<>("Duplicate Record", HttpStatus.BAD_REQUEST);
+                    } else {
+                        this.roleRepository.save(role);
+                        responseEntity = new ResponseEntity<>(role, HttpStatus.CREATED);
+                    }
+                } else {
+                    this.roleRepository.save(role);
+                    responseEntity = new ResponseEntity<>(role, HttpStatus.CREATED);
+                }
+
             }
         } else {
             responseEntity = new ResponseEntity<>("Record not found !!!", HttpStatus.BAD_REQUEST);

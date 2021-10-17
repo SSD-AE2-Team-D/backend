@@ -17,6 +17,9 @@ public class User extends SharedModel{
     private String password;
     private String email;
     private String mobileNo;
+    private Integer organizationId;
+
+    private Organization organization;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_G1")
@@ -70,4 +73,23 @@ public class User extends SharedModel{
         this.mobileNo = mobileNo;
     }
 
-   }
+    @Basic
+    @Column(name = "organization_id",nullable = false)
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id", insertable = false, updatable = false)
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+}
