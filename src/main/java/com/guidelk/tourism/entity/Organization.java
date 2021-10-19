@@ -24,7 +24,7 @@ public class Organization extends SharedModel {
 
     private AddressBook addressBook;
 
-    private Set<Module> moduleSet = new HashSet<>();
+    private Set<Module> modules = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORGANIZATION_G1")
@@ -107,12 +107,16 @@ public class Organization extends SharedModel {
         this.addressBook = addressBook;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<Module> getModuleSet() {
-        return moduleSet;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "organization_modules",
+            joinColumns = @JoinColumn(name = "organization_id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id")
+    )
+    public Set<Module> getModules() {
+        return modules;
     }
 
-    public void setModuleSet(Set<Module> moduleSet) {
-        this.moduleSet = moduleSet;
+    public void setModules(Set<Module> modules) {
+        this.modules = modules;
     }
 }

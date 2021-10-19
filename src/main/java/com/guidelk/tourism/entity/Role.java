@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,6 +17,8 @@ public class Role extends SharedModel {
     private Integer roleId;
     private String roleName;
     private String roleDescription;
+
+    private Set<Page> pages = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_G1")
@@ -29,7 +33,7 @@ public class Role extends SharedModel {
     }
 
     @Basic
-    @Column(name = "role_name",nullable = false)
+    @Column(name = "role_name", nullable = false)
     public String getRoleName() {
         return roleName;
     }
@@ -48,4 +52,21 @@ public class Role extends SharedModel {
         this.roleDescription = roleDescription;
     }
 
-   }
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "role_pages",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "page_id")
+    )
+    public Set<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(Set<Page> pages) {
+        this.pages = pages;
+    }
+
+    @Override
+    public String toString() {
+        return this.roleName;
+    }
+}

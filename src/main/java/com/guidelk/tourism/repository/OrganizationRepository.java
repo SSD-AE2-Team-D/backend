@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Integer>, EntityGraphJpaRepository<Organization, Integer>, EntityGraphQuerydslPredicateExecutor<Organization> {
+    Organization findByOrganizationNameContainsIgnoreCaseAndStatusNot(String orgName, Integer status);
 }

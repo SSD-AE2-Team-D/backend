@@ -1,6 +1,7 @@
 package com.guidelk.tourism.serviceimpl;
 
 
+import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.entity.User;
 import com.guidelk.tourism.repository.UserRepository;
 import com.guidelk.tourism.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,8 +29,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public ResponseEntity createUser(User user) {
         ResponseEntity responseEntity;
-        User dbUser = this.userRepository.findByUserNameIgnoreCaseAndStatusNot(user.getUserName(), MasterDataStatus.DELETED.getStatusSeq());
-        User dbUserEmail = this.userRepository.findByEmailIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
+        User dbUser = this.userRepository.findByUserNameContainsIgnoreCaseAndStatusNot(user.getUserName(), MasterDataStatus.DELETED.getStatusSeq());
+        User dbUserEmail = this.userRepository.findByEmailContainsIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
         if (dbUser != null) {
             responseEntity = new ResponseEntity<>("Username already exist", HttpStatus.BAD_REQUEST);
         } else if (dbUserEmail != null) {
@@ -50,20 +52,63 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity updateUser(User user) {
         ResponseEntity responseEntity;
         Optional<User> dbUser = this.userRepository.findById(user.getUserId());
-        if (!dbUser.get().getEmail().equals(user.getEmail())) {
-            User dbUserEmailValidation = this.userRepository.findByEmailIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
-            if (dbUserEmailValidation != null) {
-                responseEntity = new ResponseEntity<>("Email already exist", HttpStatus.BAD_REQUEST);
+        if (dbUser.isPresent()) {
+            String originalPassword = user.getPassword().trim();
+            String password = "{bcrypt}" + BCrypt.hashpw(originalPassword, BCrypt.gensalt());
+            if (!dbUser.get().getUserName().equals(user.getUserName())) {
+                User dbUserName = this.userRepository.findByUserNameContainsIgnoreCaseAndStatusNot(user.getUserName(), MasterDataStatus.DELETED.getStatusSeq());
+                if (dbUserName != null) {
+                    responseEntity = new ResponseEntity<>("Username already exist", HttpStatus.BAD_REQUEST);
+                } else {
+                    if (!dbUser.get().getEmail().equals(user.getEmail())) {
+                        User dbUserEmail = this.userRepository.findByEmailContainsIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
+                        if (dbUserEmail != null) {
+                            responseEntity = new ResponseEntity<>("Email already exist", HttpStatus.BAD_REQUEST);
+                        } else {
+
+                            user.setPassword(password);
+                            user.setUserName(user.getUserName().trim());
+                            user.setEmail(user.getEmail().toLowerCase().trim());
+                            this.userRepository.save(user);
+                            responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
+                        }
+                    } else {
+                        user.setPassword(password);
+                        user.setUserName(user.getUserName().trim());
+                        user.setEmail(user.getEmail().toLowerCase().trim());
+                        this.userRepository.save(user);
+                        responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
+                    }
+                }
             } else {
-                dbUser.get().setEmail(user.getEmail().toLowerCase().trim());
-                this.userRepository.save(dbUser.get());
-                responseEntity = new ResponseEntity<>(dbUser.get(), HttpStatus.CREATED);
+                if (!dbUser.get().getEmail().equals(user.getEmail())) {
+                    User dbUserEmail = this.userRepository.findByEmailContainsIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
+                    if (dbUserEmail != null) {
+                        responseEntity = new ResponseEntity<>("Email already exist", HttpStatus.BAD_REQUEST);
+                    } else {
+                        user.setPassword(password);
+                        user.setUserName(user.getUserName().trim());
+                        user.setEmail(user.getEmail().toLowerCase().trim());
+                        this.userRepository.save(user);
+                        responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
+                    }
+                } else {
+                    user.setPassword(password);
+                    user.setUserName(user.getUserName().trim());
+                    user.setEmail(user.getEmail().toLowerCase().trim());
+                    this.userRepository.save(user);
+                    responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
+                }
             }
         } else {
-            dbUser.get().setEmail(user.getEmail().toLowerCase().trim());
-            this.userRepository.save(dbUser.get());
-            responseEntity = new ResponseEntity<>(dbUser.get(), HttpStatus.CREATED);
+            responseEntity = new ResponseEntity<>("Record not found", HttpStatus.BAD_REQUEST);
         }
+
         return responseEntity;
+    }
+
+    @Override
+    public User getUserData(Integer userId) {
+        return this.userRepository.findById(userId).get();
     }
 }

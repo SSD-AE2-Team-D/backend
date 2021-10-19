@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>, EntityGraphJpaRepository<User, Integer>, EntityGraphQuerydslPredicateExecutor<User> {
-    User findByUserNameIgnoreCaseAndStatusNot(String userName, Integer status);
+    User findByUserNameContainsIgnoreCaseAndStatusNot(String userName, Integer status);
 
-    User findByEmailIgnoreCaseAndStatusNot(String email, Integer status);
+    User findByEmailContainsIgnoreCaseAndStatusNot(String email, Integer status);
 
     User findByUserNameIgnoreCase(String userName);
 }

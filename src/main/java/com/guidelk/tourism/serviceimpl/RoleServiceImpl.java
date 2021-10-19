@@ -36,7 +36,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     public ResponseEntity createRole(Role role) {
         ResponseEntity responseEntity;
-        Role dbRole = this.roleRepository.findByRoleNameAndStatusNot(role.getRoleName(), MasterDataStatus.DELETED.getStatusSeq());
+        Role dbRole = this.roleRepository.findByRoleNameContainsIgnoreCaseAndStatusNot(role.getRoleName(), MasterDataStatus.DELETED.getStatusSeq());
         if (dbRole != null) {
             responseEntity = new ResponseEntity<>("Duplicate Record", HttpStatus.BAD_REQUEST);
         } else {
@@ -56,7 +56,7 @@ public class RoleServiceImpl implements RoleService {
                 responseEntity = new ResponseEntity<>(dbRole.get(), HttpStatus.NOT_MODIFIED);
             } else {
                 if (!dbRole.get().getRoleName().equals(role.getRoleName())) {
-                    Role dbRoleNameValidation = this.roleRepository.findByRoleNameAndStatusNot(role.getRoleName(), MasterDataStatus.DELETED.getStatusSeq());
+                    Role dbRoleNameValidation = this.roleRepository.findByRoleNameContainsIgnoreCaseAndStatusNot(role.getRoleName(), MasterDataStatus.DELETED.getStatusSeq());
                     if (dbRoleNameValidation != null) {
                         responseEntity = new ResponseEntity<>("Duplicate Record", HttpStatus.BAD_REQUEST);
                     } else {
@@ -81,9 +81,8 @@ public class RoleServiceImpl implements RoleService {
         Optional<Role> dbRole = this.roleRepository.findById(roleId);
         ResponseEntity<Role> responseEntity;
         if (dbRole.isPresent()) {
-            Role role = dbRole.get();
-            role.setStatus(MasterDataStatus.DELETED.getStatusSeq());
-            this.roleRepository.save(role);
+            dbRole.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
+            this.roleRepository.save(dbRole.get());
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
         } else {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -98,7 +97,7 @@ public class RoleServiceImpl implements RoleService {
             QRole qRole = QRole.role;
             BooleanBuilder builder = new BooleanBuilder();
             if (roleVo.getRoleName() != null) {
-                builder.and(qRole.roleName.eq(roleVo.getRoleName()));
+                builder.and(qRole.roleName.contains(roleVo.getRoleName()));
             }
             if (roleVo.getStatus() != null) {
                 builder.and(qRole.status.eq(roleVo.getStatus()));

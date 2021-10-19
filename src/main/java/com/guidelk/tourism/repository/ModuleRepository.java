@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ModuleRepository extends JpaRepository<Module, Integer>, EntityGraphJpaRepository<Module, Integer>, EntityGraphQuerydslPredicateExecutor<Module> {
+
+    Module findByModuleNameContainsIgnoreCaseAndStatusNot(String moduleName, Integer status);
+
+    Module findByModuleCodeContainsIgnoreCaseAndStatusNot(String moduleCode, Integer status);
 }

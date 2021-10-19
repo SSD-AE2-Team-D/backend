@@ -16,6 +16,7 @@ public class Module extends SharedModel {
     private String moduleName;
     private String description;
     private String moduleCode;
+    private String urlPattern;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODULE_G1")
@@ -50,7 +51,7 @@ public class Module extends SharedModel {
     }
 
     @Basic
-    @Column(name = "module_code")
+    @Column(name = "module_code", nullable = false)
     public String getModuleCode() {
         return moduleCode;
     }
@@ -59,4 +60,13 @@ public class Module extends SharedModel {
         this.moduleCode = moduleCode;
     }
 
-   }
+    @Basic
+    @Column(name = "url_pattern", nullable = false)
+    public String getUrlPattern() {
+        return urlPattern;
+    }
+
+    public void setUrlPattern(String urlPattern) {
+        this.urlPattern = urlPattern;
+    }
+}

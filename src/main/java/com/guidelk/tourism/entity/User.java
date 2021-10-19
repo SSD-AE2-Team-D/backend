@@ -5,21 +5,25 @@ import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user", schema = "tourism")
-public class User extends SharedModel{
+public class User extends SharedModel {
     private Integer userId;
     private String userName;
     private String password;
     private String email;
     private String mobileNo;
+    private Boolean enabled;
     private Integer organizationId;
 
     private Organization organization;
+    private Set<Role> roles = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_G1")
@@ -34,7 +38,7 @@ public class User extends SharedModel{
     }
 
     @Basic
-    @Column(name = "user_name",nullable = false)
+    @Column(name = "username", nullable = false)
     public String getUserName() {
         return userName;
     }
@@ -44,7 +48,7 @@ public class User extends SharedModel{
     }
 
     @Basic
-    @Column(name = "password",nullable = false)
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -54,7 +58,7 @@ public class User extends SharedModel{
     }
 
     @Basic
-    @Column(name = "email",nullable = false)
+    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -64,7 +68,7 @@ public class User extends SharedModel{
     }
 
     @Basic
-    @Column(name = "mobile_no",nullable = false)
+    @Column(name = "mobile_no", nullable = false)
     public String getMobileNo() {
         return mobileNo;
     }
@@ -74,7 +78,17 @@ public class User extends SharedModel{
     }
 
     @Basic
-    @Column(name = "organization_id",nullable = false)
+    @Column(name = "enabled", nullable = false)
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Basic
+    @Column(name = "organization_id", nullable = false)
     public Integer getOrganizationId() {
         return organizationId;
     }
@@ -91,5 +105,18 @@ public class User extends SharedModel{
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
