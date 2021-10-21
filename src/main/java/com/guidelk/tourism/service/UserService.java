@@ -1,5 +1,6 @@
 package com.guidelk.tourism.service;
 
+import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -12,5 +13,7 @@ public interface UserService {
 
     ResponseEntity updateUser(User user);
 
-    User getUserData(Integer userId);
+    User getUserData(String userName);
+
+    List<Module> getUserModules(String userName, Integer organizationId);
 }

@@ -48,21 +48,15 @@ public class AuthorityServiceImpl implements AuthorityService {
             JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
             QOrganization qOrganization = QOrganization.organization;
             QUser qUser = QUser.user;
-            QPage qPage = QPage.page;
             QAuthority qAuthority = QAuthority.authority;
-            QModule qModule = QModule.module;
-            QRole qRole = QRole.role;
-            authorityList = queryFactory.select(qAuthority).distinct()
-                    .from(qOrganization, qUser, qRole, qPage, qModule, qAuthority)
+            authorityList = queryFactory.select(qAuthority)
+                    .from(qOrganization, qUser, qAuthority)
                     .where(qOrganization.organizationId.eq(organizationId))
                     .where(qUser.userName.eq(userName))
                     .where(qUser.enabled.eq(true))
                     .where(qOrganization.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
                     .where(qUser.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qUser.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qRole.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
                     .where(qAuthority.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qModule.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
                     .fetch();
 
         } catch (Exception e) {

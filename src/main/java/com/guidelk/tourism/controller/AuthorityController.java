@@ -1,16 +1,16 @@
 package com.guidelk.tourism.controller;
 
 import com.guidelk.tourism.entity.Authority;
+import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("authorities")
 public class AuthorityController {
 
@@ -25,5 +25,12 @@ public class AuthorityController {
     @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
     public List<Authority> getDefaultAuthorityList() {
        return this.authorityService.getDefaultAuthorityList();
+    }
+
+    @GetMapping("/getUserAuthorities")
+    @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
+    public List<Authority> getUserAuthorities(@RequestParam("userName") String userName,
+                                       @RequestParam("organizationId") Integer organizationId) {
+        return this.authorityService.getAuthorityList(userName, organizationId);
     }
 }

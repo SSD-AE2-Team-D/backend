@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("users")
 public class UserController {
 
@@ -33,7 +34,8 @@ public class UserController {
 
     @GetMapping("/getUserData")
     @PreAuthorize("hasRole('ROLE_config@user_VIEW')")
-    public User getUserData(@RequestParam("userId") Integer userId) {
-        return this.userService.getUserData(userId);
+    public User getUserData(@RequestParam("userName") String userName) {
+        return this.userService.getUserData(userName);
     }
+
 }
