@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("modules")
 public class ModuleController {
 
@@ -24,13 +25,13 @@ public class ModuleController {
     }
 
     @PostMapping
-     @PreAuthorize("hasRole('ROLE_config@module_CREATE')")
+    @PreAuthorize("hasRole('ROLE_config@module_CREATE')")
     public ResponseEntity createModule(@RequestBody Module module) {
         return this.moduleService.createModule(module);
     }
 
     @PutMapping
-     @PreAuthorize("hasRole('ROLE_config@module_UPDATE')")
+    @PreAuthorize("hasRole('ROLE_config@module_UPDATE')")
     public ResponseEntity updateModule(@RequestBody Module module) {
         return this.moduleService.updateModule(module);
     }
@@ -47,8 +48,15 @@ public class ModuleController {
         return this.moduleService.moduleSearch(moduleVo);
     }
 
+    @GetMapping("/getUserModules")
+    @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
+    public List<Module> getUserModules(@RequestParam("userName") String userName,
+                                              @RequestParam("organizationId") Integer organizationId) {
+        return this.moduleService.getUserModules(userName, organizationId);
+    }
+
     @GetMapping("/getMasterStatusList")
-    // @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
+    @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
     public List<MasterDataStatus> findStatusList() {
         return Arrays.asList(MasterDataStatus.values());
     }

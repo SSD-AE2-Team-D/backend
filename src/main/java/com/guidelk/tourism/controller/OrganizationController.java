@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("organizations")
 public class OrganizationController {
 

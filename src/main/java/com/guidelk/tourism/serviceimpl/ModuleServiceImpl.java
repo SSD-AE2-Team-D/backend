@@ -2,12 +2,15 @@ package com.guidelk.tourism.serviceimpl;
 
 import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.entity.QModule;
+import com.guidelk.tourism.entity.QOrganization;
+import com.guidelk.tourism.entity.QUser;
 import com.guidelk.tourism.repository.ModuleRepository;
 import com.guidelk.tourism.service.ModuleService;
 import com.guidelk.tourism.util.DateUtil;
 import com.guidelk.tourism.util.MasterDataStatus;
 import com.guidelk.tourism.vo.ModuleVo;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +31,9 @@ public class ModuleServiceImpl implements ModuleService {
 
     private final ModuleRepository moduleRepository;
     private final Logger logger = LoggerFactory.getLogger(ModuleServiceImpl.class);
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     public ModuleServiceImpl(ModuleRepository moduleRepository) {
@@ -108,6 +116,30 @@ public class ModuleServiceImpl implements ModuleService {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @Override
+    public List<Module> getUserModules(String userName, Integer organizationId) {
+        List<Module> modules = new ArrayList<>();
+        try {
+            JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+            QOrganization qOrganization = QOrganization.organization;
+            QUser qUser = QUser.user;
+
+            QModule qModule = QModule.module;
+            modules = queryFactory.select(qModule)
+                    .from(qOrganization, qUser, qModule)
+                    .where(qOrganization.organizationId.eq(organizationId))
+                    .where(qUser.userName.eq(userName))
+                    .where(qUser.enabled.eq(true))
+                    .where(qOrganization.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
+                    .where(qUser.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
+                    .where(qModule.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
+                    .fetch();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
+        return modules;
     }
 
     @Override

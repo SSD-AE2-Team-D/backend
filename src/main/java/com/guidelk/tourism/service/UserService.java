@@ -15,5 +15,4 @@ public interface UserService {
 
     User getUserData(String userName);
 
-    List<Module> getUserModules(String userName, Integer organizationId);
 }

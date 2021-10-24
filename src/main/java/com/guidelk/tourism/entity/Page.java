@@ -19,6 +19,8 @@ public class Page extends SharedModel {
     private String description;
     private Integer moduleId;
     private String urlPattern;
+    private Integer orderIndex;
+    private String icon;
 
     private Module module;
 
@@ -72,8 +74,28 @@ public class Page extends SharedModel {
         return urlPattern;
     }
 
+    @Basic
+    @Column(name = "order_index", nullable = false)
+    public Integer getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(Integer orderIndex) {
+        this.orderIndex = orderIndex;
+    }
+
     public void setUrlPattern(String urlPattern) {
         this.urlPattern = urlPattern;
+    }
+
+    @Basic
+    @Column(name = "icon", nullable = false)
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)

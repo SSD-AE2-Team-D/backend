@@ -1,11 +1,10 @@
 package com.guidelk.tourism.serviceimpl;
 
 
-import com.guidelk.tourism.entity.*;
+import com.guidelk.tourism.entity.User;
 import com.guidelk.tourism.repository.UserRepository;
 import com.guidelk.tourism.service.UserService;
 import com.guidelk.tourism.util.MasterDataStatus;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -121,28 +118,6 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByUserNameIgnoreCase(userName);
     }
 
-    @Override
-    public List<Module> getUserModules(String userName, Integer organizationId) {
-        List<Module> modules = new ArrayList<>();
-        try {
-            JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-            QOrganization qOrganization = QOrganization.organization;
-            QUser qUser = QUser.user;
 
-            QModule qModule = QModule.module;
-            modules = queryFactory.select(qModule)
-                    .from(qOrganization, qUser, qModule)
-                    .where(qOrganization.organizationId.eq(organizationId))
-                    .where(qUser.userName.eq(userName))
-                    .where(qUser.enabled.eq(true))
-                    .where(qOrganization.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qUser.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qModule.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .fetch();
-        }catch (Exception e){
-            logger.error(e.getMessage());
-        }
-        return modules;
-    }
 
 }

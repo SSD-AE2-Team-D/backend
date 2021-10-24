@@ -16,4 +16,6 @@ public interface ModuleService {
     ResponseEntity<Module> deleteModule(Integer moduleId);
 
     List<Module> moduleSearch(ModuleVo moduleVo);
+
+    List<Module> getUserModules(String userName, Integer organizationId);
 }

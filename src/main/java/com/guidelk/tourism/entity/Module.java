@@ -17,6 +17,7 @@ public class Module extends SharedModel {
     private String description;
     private String moduleCode;
     private String urlPattern;
+    private String icon;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODULE_G1")
@@ -68,5 +69,15 @@ public class Module extends SharedModel {
 
     public void setUrlPattern(String urlPattern) {
         this.urlPattern = urlPattern;
+    }
+
+    @Basic
+    @Column(name = "icon", nullable = false)
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
