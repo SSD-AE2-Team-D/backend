@@ -6,6 +6,7 @@ public class ModuleVo {
     private String moduleName;
     private String moduleCode;
     private Integer status;
+    private Integer organizationId;
     private Date createdFromDate;
     private Date createdToDate;
 
@@ -31,6 +32,14 @@ public class ModuleVo {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public Date getCreatedFromDate() {

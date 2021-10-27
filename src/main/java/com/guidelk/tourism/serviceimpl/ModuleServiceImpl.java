@@ -47,7 +47,7 @@ public class ModuleServiceImpl implements ModuleService {
         Module dbModuleName = this.moduleRepository.findByModuleNameContainsIgnoreCaseAndStatusNot(module.getModuleName(), MasterDataStatus.DELETED.getStatusSeq());
         Module dbModuleCode = this.moduleRepository.findByModuleCodeContainsIgnoreCaseAndStatusNot(module.getModuleCode(), MasterDataStatus.DELETED.getStatusSeq());
         if (dbModuleName != null) {
-            responseEntity = new ResponseEntity<>("Module name already exist", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<>("Module name already exist", HttpStatus.CONFLICT);
         } else if (dbModuleCode != null) {
             responseEntity = new ResponseEntity<>("Module code already exist", HttpStatus.BAD_REQUEST);
         } else {
@@ -136,10 +136,15 @@ public class ModuleServiceImpl implements ModuleService {
                     .where(qUser.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
                     .where(qModule.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
                     .fetch();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
         return modules;
+    }
+
+    @Override
+    public Module getModuleData(Integer moduleId) {
+        return this.moduleRepository.findById(moduleId).get();
     }
 
     @Override
@@ -148,10 +153,11 @@ public class ModuleServiceImpl implements ModuleService {
         try {
             QModule qModule = QModule.module;
             BooleanBuilder builder = new BooleanBuilder();
+            builder.and(qModule.organizationId.eq(moduleVo.getOrganizationId()));
             if (moduleVo.getModuleName() != null) {
                 builder.and(qModule.moduleName.contains(moduleVo.getModuleName()));
             }
-            if (moduleVo.getModuleCode()!= null) {
+            if (moduleVo.getModuleCode() != null) {
                 builder.and(qModule.moduleCode.contains(moduleVo.getModuleCode()));
             }
             if (moduleVo.getStatus() != null) {
@@ -163,7 +169,7 @@ public class ModuleServiceImpl implements ModuleService {
             }
             moduleList = (List<Module>) this.moduleRepository.findAll(builder);
         } catch (Exception e) {
-            logger.error("Role Search Error:" + e.getMessage());
+            logger.error("Module Search Error:" + e.getMessage());
         }
         return moduleList;
     }

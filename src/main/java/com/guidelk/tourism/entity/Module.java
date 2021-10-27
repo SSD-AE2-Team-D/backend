@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -18,6 +19,7 @@ public class Module extends SharedModel {
     private String moduleCode;
     private String urlPattern;
     private String icon;
+    private Integer organizationId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MODULE_G1")
@@ -72,12 +74,22 @@ public class Module extends SharedModel {
     }
 
     @Basic
-    @Column(name = "icon", nullable = false)
+    @Column(name = "icon")
     public String getIcon() {
         return icon;
     }
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    @Basic
+    @Column(name = "organization_id", nullable = false)
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 }

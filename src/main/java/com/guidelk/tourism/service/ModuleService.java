@@ -18,4 +18,6 @@ public interface ModuleService {
     List<Module> moduleSearch(ModuleVo moduleVo);
 
     List<Module> getUserModules(String userName, Integer organizationId);
+
+    Module getModuleData(Integer moduleId);
 }

@@ -50,8 +50,8 @@ public class OrganizationController {
 
     @GetMapping("/getMasterStatusList")
     @PreAuthorize("hasRole('ROLE_config@organization_VIEW')")
-    public List<MasterDataStatus> findStatusList() {
-        return Arrays.asList(MasterDataStatus.values());
+    public List<MasterDataStatus> findStatusList(@RequestParam("filter") String filter) {
+        return MasterDataStatus.getMasterStatusActionWise(filter);
     }
 
 }

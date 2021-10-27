@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -55,10 +54,16 @@ public class ModuleController {
         return this.moduleService.getUserModules(userName, organizationId);
     }
 
+    @GetMapping("/getModuleData")
+    @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
+    public Module getModuleData(@RequestParam("moduleId") Integer moduleId) {
+        return this.moduleService.getModuleData(moduleId);
+    }
+
     @GetMapping("/getMasterStatusList")
     @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
-    public List<MasterDataStatus> findStatusList() {
-        return Arrays.asList(MasterDataStatus.values());
+    public List<MasterDataStatus> findStatusList(@RequestParam("filter") String filter) {
+        return MasterDataStatus.getMasterStatusActionWise(filter);
     }
 
 }
