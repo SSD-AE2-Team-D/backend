@@ -31,7 +31,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userRepository.findByUserNameIgnoreCase(username);
+        User user = this.userRepository.findByUserNameIgnoreCaseAndEnabled(username, true);
         this.grantedAuthorities(user);
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), new ArrayList<>());
     }

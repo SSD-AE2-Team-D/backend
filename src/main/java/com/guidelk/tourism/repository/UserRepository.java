@@ -13,4 +13,8 @@ public interface UserRepository extends JpaRepository<User, Integer>, EntityGrap
     User findByEmailContainsIgnoreCaseAndStatusNot(String email, Integer status);
 
     User findByUserNameIgnoreCase(String userName);
+
+    User findByUserNameIgnoreCaseAndEnabled(String userName, Boolean enabled);
+
+    User findByUserNameAndOrganizationId(String userName, Integer organizationId);
 }

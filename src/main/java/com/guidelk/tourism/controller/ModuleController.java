@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -50,7 +51,7 @@ public class ModuleController {
     @GetMapping("/getUserModules")
     @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
     public List<Module> getUserModules(@RequestParam("userName") String userName,
-                                              @RequestParam("organizationId") Integer organizationId) {
+                                            @RequestParam("organizationId") Integer organizationId) {
         return this.moduleService.getUserModules(userName, organizationId);
     }
 

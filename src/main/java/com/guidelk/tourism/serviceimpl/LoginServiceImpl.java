@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
                     new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
             );
         } catch (Exception e) {
-            logger.error("Invalid username/password", e.getMessage());
+            logger.error(e.getMessage());
         }
         return jwtUtil.generateToken(authRequest.getUserName());
     }
