@@ -1,7 +1,7 @@
-package com.guidelk.tourism.config.filter;
+package com.guidelk.tourism.auth.filter;
 
-import com.guidelk.tourism.config.service.CustomUserDetailService;
-import com.guidelk.tourism.util.JwtUtil;
+import com.guidelk.tourism.auth.service.CustomUserDetailService;
+import com.guidelk.tourism.auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

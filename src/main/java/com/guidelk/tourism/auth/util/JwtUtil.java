@@ -1,4 +1,4 @@
-package com.guidelk.tourism.util;
+package com.guidelk.tourism.auth.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

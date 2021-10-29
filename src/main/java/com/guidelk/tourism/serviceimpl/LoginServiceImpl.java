@@ -2,7 +2,7 @@ package com.guidelk.tourism.serviceimpl;
 
 import com.guidelk.tourism.entity.AuthRequest;
 import com.guidelk.tourism.service.LoginService;
-import com.guidelk.tourism.util.JwtUtil;
+import com.guidelk.tourism.auth.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -163,6 +163,10 @@ public class ModuleServiceImpl implements ModuleService {
             if (moduleVo.getStatus() != null) {
                 builder.and(qModule.status.eq(moduleVo.getStatus()));
             }
+            if (moduleVo.getCreatedFromDate() != null) {
+                Date createdToDate = DateUtil.setTimeToDate(moduleVo.getCreatedFromDate(), 23, 59, 59);
+                builder.and(qModule.createdDate.after(createdToDate));
+            }
             if (moduleVo.getCreatedToDate() != null) {
                 Date createdToDate = DateUtil.setTimeToDate(moduleVo.getCreatedToDate(), 23, 59, 59);
                 builder.and(qModule.createdDate.before(createdToDate));

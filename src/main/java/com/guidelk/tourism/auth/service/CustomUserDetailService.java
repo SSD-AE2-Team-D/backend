@@ -1,4 +1,4 @@
-package com.guidelk.tourism.config.service;
+package com.guidelk.tourism.auth.service;
 
 import com.guidelk.tourism.entity.Authority;
 import com.guidelk.tourism.entity.User;
