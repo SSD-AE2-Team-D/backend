@@ -1,15 +1,13 @@
-package com.guidelk.tourism.entity;
+package com.guidelk.tourism.auth.payload.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotBlank;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class AuthRequest {
 
+    @NotBlank
     private String userName;
+
+    @NotBlank
     private String password;
 
     public String getUserName() {

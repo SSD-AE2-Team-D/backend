@@ -28,20 +28,6 @@ import java.util.stream.Stream;
 @EntityScan
 public class GuideLKApplication {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/*")
-                        .allowedHeaders("*")
-                        .allowedOrigins("*")
-                        .allowedMethods("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(GuideLKApplication.class, args);
     }
