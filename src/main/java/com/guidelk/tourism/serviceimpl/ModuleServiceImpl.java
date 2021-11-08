@@ -140,6 +140,11 @@ public class ModuleServiceImpl implements ModuleService {
     }
 
     @Override
+    public List<Module> getUserModuleList() {
+        return this.moduleRepository.findByStatus(MasterDataStatus.APPROVED.getStatusSeq());
+    }
+
+    @Override
     public List<Module> moduleSearch(ModuleVo moduleVo) {
         List<Module> moduleList = new ArrayList<>();
         try {

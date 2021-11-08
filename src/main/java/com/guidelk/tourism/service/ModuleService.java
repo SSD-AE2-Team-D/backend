@@ -21,4 +21,6 @@ public interface ModuleService {
     List<Module> getUserModules(String userName, Integer organizationId);
 
     Module getModuleData(Integer moduleId);
+
+    List<Module> getUserModuleList();
 }

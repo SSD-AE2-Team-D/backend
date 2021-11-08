@@ -40,6 +40,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         if (dbOrganization != null) {
             responseEntity = new ResponseEntity<>("Organization already exist", HttpStatus.BAD_REQUEST);
         } else {
+            if (organization.getAddressBook() != null) {
+                organization.getAddressBook().setStatus(MasterDataStatus.APPROVED.getStatusSeq());
+            }
             this.organizationRepository.save(organization);
             responseEntity = new ResponseEntity<>(organization, HttpStatus.CREATED);
         }

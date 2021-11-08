@@ -15,7 +15,7 @@ public class AddressBook extends SharedModel {
     private Integer addressBookId;
     private String addressOne;
     private String addressTwo;
-    private String zip;
+    private String postalCode;
     private String fax;
     private String email;
     private String telephone;
@@ -55,13 +55,13 @@ public class AddressBook extends SharedModel {
     }
 
     @Basic
-    @Column(name = "zip")
-    public String getZip() {
-        return zip;
+    @Column(name = "postal_code")
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     @Basic

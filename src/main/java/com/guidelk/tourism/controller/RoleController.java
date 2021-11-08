@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,13 +26,13 @@ public class RoleController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_config@role_CREATE')")
-    public ResponseEntity createRole(@RequestBody Role role) {
+    public ResponseEntity createRole(@Valid @RequestBody Role role) {
         return this.roleService.createRole(role);
     }
 
     @PutMapping
     @PreAuthorize("hasRole('ROLE_config@role_UPDATE')")
-    public ResponseEntity updateRole(@RequestBody Role role) {
+    public ResponseEntity updateRole(@Valid @RequestBody Role role) {
         return this.roleService.updateRole(role);
     }
 

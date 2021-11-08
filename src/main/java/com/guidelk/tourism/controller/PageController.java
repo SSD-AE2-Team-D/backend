@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class PageController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_config@page_CREATE')")
-    public ResponseEntity createPage(@RequestBody Page page) {
+    public ResponseEntity createPage(@Valid @RequestBody Page page) {
         return this.pageService.createPage(page);
     }
 

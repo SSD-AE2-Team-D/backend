@@ -51,12 +51,12 @@ public class JwtLoginServiceImpl implements JwtLoginService {
     @Override
     public ResponseEntity<?> authenticate(AuthRequest authRequest) {
         try {
-            Authentication authentication = authenticationManager
+           this.authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
+
         String jwt = jwtUtils.generateJwtToken(authRequest.getUserName());
         User user = this.userRepository.findByUserNameIgnoreCaseAndEnabled(authRequest.getUserName(), true);
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getUserId());

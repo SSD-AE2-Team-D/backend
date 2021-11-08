@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,13 +27,13 @@ public class OrganizationController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_config@organization_CREATE')")
-    public ResponseEntity createOrganization(@RequestBody Organization organization) {
+    public ResponseEntity createOrganization(@Valid @RequestBody Organization organization) {
         return this.organizationService.createOrganization(organization);
     }
 
     @PutMapping
     @PreAuthorize("hasRole('ROLE_config@organization_UPDATE')")
-    public ResponseEntity updateOrganization(@RequestBody Organization organization) {
+    public ResponseEntity updateOrganization(@Valid @RequestBody Organization organization) {
         return this.organizationService.updateOrganization(organization);
     }
 

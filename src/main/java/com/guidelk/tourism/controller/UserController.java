@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("users")
@@ -21,13 +23,13 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_config@user_CREATE')")
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity createUser(@Valid @RequestBody User user) {
         return this.userService.createUser(user);
     }
 
     @PutMapping
     @PreAuthorize("hasRole('ROLE_config@user_UPDATE')")
-    public ResponseEntity updateUser(@RequestBody User user) {
+    public ResponseEntity updateUser(@Valid @RequestBody User user) {
         return this.userService.updateUser(user);
     }
 

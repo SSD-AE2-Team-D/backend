@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -26,13 +27,13 @@ public class ModuleController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_config@module_CREATE')")
-    public ResponseEntity createModule(@RequestBody Module module) {
+    public ResponseEntity createModule(@Valid @RequestBody Module module) {
         return this.moduleService.createModule(module);
     }
 
     @PutMapping
     @PreAuthorize("hasRole('ROLE_config@module_UPDATE')")
-    public ResponseEntity updateModule(@RequestBody Module module) {
+    public ResponseEntity updateModule(@Valid @RequestBody Module module) {
         return this.moduleService.updateModule(module);
     }
 
@@ -53,6 +54,12 @@ public class ModuleController {
     public List<Module> getUserModules(@RequestParam("userName") String userName,
                                             @RequestParam("organizationId") Integer organizationId) {
         return this.moduleService.getUserModules(userName, organizationId);
+    }
+
+    @GetMapping("/getUserModuleList")
+    @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
+    public List<Module> getUserModuleList() {
+        return this.moduleService.getUserModuleList();
     }
 
     @GetMapping("/getModuleData")

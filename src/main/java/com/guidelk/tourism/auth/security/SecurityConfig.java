@@ -25,16 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailService userDetailService;
     private final AuthTokenFilter jwtFilter;
-    private final JwtUtils jwtUtils;
     private final AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
     public SecurityConfig(CustomUserDetailService userDetailService,
-                          AuthTokenFilter jwtFilter, JwtUtils jwtUtils,
+                          AuthTokenFilter jwtFilter,
                           AuthEntryPointJwt unauthorizedHandler) {
         this.userDetailService = userDetailService;
         this.jwtFilter = jwtFilter;
-        this.jwtUtils = jwtUtils;
         this.unauthorizedHandler = unauthorizedHandler;
     }
 
