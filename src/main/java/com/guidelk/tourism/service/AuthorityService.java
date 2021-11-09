@@ -10,4 +10,6 @@ public interface AuthorityService {
     List<Authority> getDefaultAuthorityList();
 
     List<Authority> getAuthorityList(String userName, Integer organizationId);
+
+
 }

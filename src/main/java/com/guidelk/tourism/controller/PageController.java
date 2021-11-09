@@ -1,7 +1,12 @@
 package com.guidelk.tourism.controller;
 
+import com.guidelk.tourism.entity.Authority;
+import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.entity.Page;
 import com.guidelk.tourism.service.PageService;
+import com.guidelk.tourism.util.MasterDataStatus;
+import com.guidelk.tourism.vo.ModuleVo;
+import com.guidelk.tourism.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -28,10 +34,40 @@ public class PageController {
         return this.pageService.createPage(page);
     }
 
+    @PutMapping
+    @PreAuthorize("hasRole('ROLE_config@page_UPDATE')")
+    public ResponseEntity<Page> updatePage(@Valid @RequestBody Page page) {
+        return this.pageService.updatePage(page);
+    }
+
+    @DeleteMapping("{pageId}")
+    @PreAuthorize("hasRole('ROLE_config@page_DELETE')")
+    public ResponseEntity<Page> deletePage(@PathVariable("pageId") Integer pageId) {
+        return this.pageService.deletePage(pageId);
+    }
+
+    @PostMapping("/pageSearch")
+    @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
+    public List<Page> pageSearch(@RequestBody PageVo pageVo) {
+        return this.pageService.pageSearch(pageVo);
+    }
+
     @GetMapping("/getPagesByModule")
     @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
     public List<Page> getPagesByModule(@RequestParam("moduleId") Integer moduleId) {
         return this.pageService.getPagesByModule(moduleId);
+    }
+
+    @GetMapping(params = "pageId")
+    @PreAuthorize("hasRole('ROLE_config@documentLink_VIEW')")
+    public Set<Authority> getAuthoritiesByPageId(@RequestParam("pageId") Integer pageId) {
+        return this.pageService.getAuthoritiesByPageId(pageId);
+    }
+
+    @GetMapping("/getMasterStatusList")
+    @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
+    public List<MasterDataStatus> findStatusList(@RequestParam("filter") String filter) {
+        return MasterDataStatus.getMasterStatusActionWise(filter);
     }
 
 }

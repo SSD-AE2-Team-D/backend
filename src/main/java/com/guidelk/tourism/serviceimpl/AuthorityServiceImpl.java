@@ -54,9 +54,9 @@ public class AuthorityServiceImpl implements AuthorityService {
                     .where(qOrganization.organizationId.eq(organizationId))
                     .where(qUser.userName.eq(userName))
                     .where(qUser.enabled.eq(true))
-                    .where(qOrganization.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qUser.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
-                    .where(qAuthority.status.ne(MasterDataStatus.DELETED.getStatusSeq()))
+                    .where(qOrganization.status.eq(MasterDataStatus.APPROVED.getStatusSeq()))
+                    .where(qUser.status.eq(MasterDataStatus.APPROVED.getStatusSeq()))
+                    .where(qAuthority.status.eq(MasterDataStatus.APPROVED.getStatusSeq()))
                     .fetch();
 
         } catch (Exception e) {
@@ -64,4 +64,5 @@ public class AuthorityServiceImpl implements AuthorityService {
         }
         return authorityList;
     }
+
 }

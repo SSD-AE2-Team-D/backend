@@ -43,4 +43,7 @@ public interface AuthorityRepository extends JpaRepository<Authority, Integer>, 
             "  and u.username = ?1\n" +
             "  and org.organization_id = ?2", nativeQuery = true)
     List<Authority> getAuthorityList(String userName, Integer organizationId);
+
+    Authority findByAuthorityNameAndStatus(String name , Integer status);
+
 }
