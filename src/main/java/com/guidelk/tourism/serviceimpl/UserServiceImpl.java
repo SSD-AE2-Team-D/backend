@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
                 user.setEmail(user.getEmail().toLowerCase().trim());
                 this.userRepository.save(user);
                 responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
-
             }
         } else {
             responseEntity = new ResponseEntity<>("Record not found", HttpStatus.BAD_REQUEST);
