@@ -19,7 +19,10 @@ public interface PageService {
 
     List<Page> getPagesByModule(Integer moduleId);
 
+    List<Page> getPageList();
+
     List<Page> pageSearch(PageVo pageVo);
 
     Set<Authority> getAuthoritiesByPageId(Integer pageId);
+
 }

@@ -10,5 +10,8 @@ import java.util.List;
 
 @Repository
 public interface PageRepository extends JpaRepository<Page, Integer>, EntityGraphJpaRepository<Page, Integer>, EntityGraphQuerydslPredicateExecutor<Page> {
+
     Page findByPageNameContainsIgnoreCaseAndStatusNot(String pageName, Integer status);
+
+    List<Page> findByStatus(Integer status);
 }

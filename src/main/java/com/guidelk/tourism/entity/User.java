@@ -38,7 +38,7 @@ public class User extends SharedModel {
     }
 
     @Basic
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     public String getUserName() {
         return userName;
     }
@@ -58,7 +58,7 @@ public class User extends SharedModel {
     }
 
     @Basic
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
     }

@@ -136,6 +136,11 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
+    public List<Page> getPageList() {
+        return this.pageRepository.findByStatus(MasterDataStatus.APPROVED.getStatusSeq());
+    }
+
+    @Override
     public Set<Authority> getAuthoritiesByPageId(Integer pageId) {
         return this.pageRepository.findById(pageId).get().getAuthorities();
     }

@@ -46,6 +46,12 @@ public class PageController {
         return this.pageService.deletePage(pageId);
     }
 
+    @GetMapping("/getPageList")
+    @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
+    public List<Page> getPageList() {
+        return this.pageService.getPageList();
+    }
+
     @PostMapping("/pageSearch")
     @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
     public List<Page> pageSearch(@RequestBody PageVo pageVo) {
@@ -59,7 +65,7 @@ public class PageController {
     }
 
     @GetMapping(params = "pageId")
-    @PreAuthorize("hasRole('ROLE_config@documentLink_VIEW')")
+    @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
     public Set<Authority> getAuthoritiesByPageId(@RequestParam("pageId") Integer pageId) {
         return this.pageService.getAuthoritiesByPageId(pageId);
     }

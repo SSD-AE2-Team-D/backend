@@ -1,5 +1,6 @@
 package com.guidelk.tourism.serviceimpl;
 
+import com.guidelk.tourism.entity.Page;
 import com.guidelk.tourism.entity.QRole;
 import com.guidelk.tourism.entity.Role;
 import com.guidelk.tourism.repository.RoleRepository;
@@ -16,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -55,19 +53,8 @@ public class RoleServiceImpl implements RoleService {
             if (dbRole.get().equals(role)) {
                 responseEntity = new ResponseEntity<>(dbRole.get(), HttpStatus.NOT_MODIFIED);
             } else {
-                if (!dbRole.get().getRoleName().equals(role.getRoleName())) {
-                    Role dbRoleNameValidation = this.roleRepository.findByRoleNameContainsIgnoreCaseAndStatusNot(role.getRoleName(), MasterDataStatus.DELETED.getStatusSeq());
-                    if (dbRoleNameValidation != null) {
-                        responseEntity = new ResponseEntity<>("Duplicate Record", HttpStatus.BAD_REQUEST);
-                    } else {
-                        this.roleRepository.save(role);
-                        responseEntity = new ResponseEntity<>(role, HttpStatus.CREATED);
-                    }
-                } else {
-                    this.roleRepository.save(role);
-                    responseEntity = new ResponseEntity<>(role, HttpStatus.CREATED);
-                }
-
+                this.roleRepository.save(role);
+                responseEntity = new ResponseEntity<>(role, HttpStatus.CREATED);
             }
         } else {
             responseEntity = new ResponseEntity<>("Record not found !!!", HttpStatus.BAD_REQUEST);
@@ -82,12 +69,18 @@ public class RoleServiceImpl implements RoleService {
         ResponseEntity<Role> responseEntity;
         if (dbRole.isPresent()) {
             dbRole.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
+            dbRole.get().setPages(null);
             this.roleRepository.save(dbRole.get());
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
         } else {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @Override
+    public Set<Page> getPagesByRoleId(Integer roleId) {
+        return this.roleRepository.findById(roleId).get().getPages();
     }
 
     @Override
@@ -101,6 +94,10 @@ public class RoleServiceImpl implements RoleService {
             }
             if (roleVo.getStatus() != null) {
                 builder.and(qRole.status.eq(roleVo.getStatus()));
+            }
+            if (roleVo.getCreatedFromDate() != null) {
+                Date createdToDate = DateUtil.setTimeToDate(roleVo.getCreatedFromDate(), 23, 59, 59);
+                builder.and(qRole.createdDate.after(createdToDate));
             }
             if (roleVo.getCreatedToDate() != null) {
                 Date createdToDate = DateUtil.setTimeToDate(roleVo.getCreatedToDate(), 23, 59, 59);

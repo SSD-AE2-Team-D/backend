@@ -1,5 +1,7 @@
 package com.guidelk.tourism.controller;
 
+import com.guidelk.tourism.entity.Authority;
+import com.guidelk.tourism.entity.Page;
 import com.guidelk.tourism.entity.Role;
 import com.guidelk.tourism.service.RoleService;
 import com.guidelk.tourism.util.MasterDataStatus;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -46,6 +49,12 @@ public class RoleController {
     @PreAuthorize("hasRole('ROLE_config@role_VIEW')")
     public List<Role> roleSearch(@RequestBody RoleVo roleVo) {
         return this.roleService.roleSearch(roleVo);
+    }
+
+    @GetMapping(params = "roleId")
+    @PreAuthorize("hasRole('ROLE_config@role_VIEW')")
+    public Set<Page> getPagesByRoleId(@RequestParam("roleId") Integer roleId) {
+        return this.roleService.getPagesByRoleId(roleId);
     }
 
     @GetMapping("/getMasterStatusList")

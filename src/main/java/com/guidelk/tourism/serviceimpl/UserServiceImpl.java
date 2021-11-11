@@ -61,50 +61,15 @@ public class UserServiceImpl implements UserService {
         if (dbUser.isPresent()) {
             String originalPassword = user.getPassword().trim();
             String password = "{bcrypt}" + BCrypt.hashpw(originalPassword, BCrypt.gensalt());
-            if (!dbUser.get().getUserName().equals(user.getUserName())) {
-                User dbUserName = this.userRepository.findByUserNameContainsIgnoreCaseAndStatusNot(user.getUserName(), MasterDataStatus.DELETED.getStatusSeq());
-                if (dbUserName != null) {
-                    responseEntity = new ResponseEntity<>("Username already exist", HttpStatus.BAD_REQUEST);
-                } else {
-                    if (!dbUser.get().getEmail().equals(user.getEmail())) {
-                        User dbUserEmail = this.userRepository.findByEmailContainsIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
-                        if (dbUserEmail != null) {
-                            responseEntity = new ResponseEntity<>("Email already exist", HttpStatus.BAD_REQUEST);
-                        } else {
-
-                            user.setPassword(password);
-                            user.setUserName(user.getUserName().trim());
-                            user.setEmail(user.getEmail().toLowerCase().trim());
-                            this.userRepository.save(user);
-                            responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
-                        }
-                    } else {
-                        user.setPassword(password);
-                        user.setUserName(user.getUserName().trim());
-                        user.setEmail(user.getEmail().toLowerCase().trim());
-                        this.userRepository.save(user);
-                        responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
-                    }
-                }
+            if (dbUser.get().getUserName().equals(user.getUserName())) {
+                responseEntity = new ResponseEntity<>(dbUser.get(), HttpStatus.NOT_MODIFIED);
             } else {
-                if (!dbUser.get().getEmail().equals(user.getEmail())) {
-                    User dbUserEmail = this.userRepository.findByEmailContainsIgnoreCaseAndStatusNot(user.getEmail(), MasterDataStatus.DELETED.getStatusSeq());
-                    if (dbUserEmail != null) {
-                        responseEntity = new ResponseEntity<>("Email already exist", HttpStatus.BAD_REQUEST);
-                    } else {
-                        user.setPassword(password);
-                        user.setUserName(user.getUserName().trim());
-                        user.setEmail(user.getEmail().toLowerCase().trim());
-                        this.userRepository.save(user);
-                        responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
-                    }
-                } else {
-                    user.setPassword(password);
-                    user.setUserName(user.getUserName().trim());
-                    user.setEmail(user.getEmail().toLowerCase().trim());
-                    this.userRepository.save(user);
-                    responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
-                }
+                user.setPassword(password);
+                user.setUserName(user.getUserName().trim());
+                user.setEmail(user.getEmail().toLowerCase().trim());
+                this.userRepository.save(user);
+                responseEntity = new ResponseEntity<>(user, HttpStatus.CREATED);
+
             }
         } else {
             responseEntity = new ResponseEntity<>("Record not found", HttpStatus.BAD_REQUEST);
@@ -117,7 +82,6 @@ public class UserServiceImpl implements UserService {
     public User getUserData(String userName) {
         return this.userRepository.findByUserNameIgnoreCase(userName);
     }
-
 
 
 }

@@ -100,6 +100,10 @@ public class OrganizationServiceImpl implements OrganizationService {
             if (organizationVo.getStatus() != null) {
                 builder.and(qOrganization.status.eq(organizationVo.getStatus()));
             }
+            if (organizationVo.getCreatedFromDate() != null) {
+                Date createdToDate = DateUtil.setTimeToDate(organizationVo.getCreatedFromDate(), 23, 59, 59);
+                builder.and(qOrganization.createdDate.after(createdToDate));
+            }
             if (organizationVo.getCreatedToDate() != null) {
                 Date createdToDate = DateUtil.setTimeToDate(organizationVo.getCreatedToDate(), 23, 59, 59);
                 builder.and(qOrganization.createdDate.before(createdToDate));

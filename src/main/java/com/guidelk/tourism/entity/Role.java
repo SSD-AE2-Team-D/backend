@@ -33,7 +33,7 @@ public class Role extends SharedModel {
     }
 
     @Basic
-    @Column(name = "role_name", nullable = false)
+    @Column(name = "role_name", nullable = false , unique = true)
     public String getRoleName() {
         return roleName;
     }
@@ -52,7 +52,7 @@ public class Role extends SharedModel {
         this.roleDescription = roleDescription;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "role_pages",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "page_id")
