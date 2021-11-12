@@ -4,12 +4,12 @@ import com.guidelk.tourism.entity.*;
 import com.guidelk.tourism.repository.AuthorityRepository;
 import com.guidelk.tourism.repository.ModuleRepository;
 import com.guidelk.tourism.repository.PageRepository;
+import com.guidelk.tourism.repository.UserRepository;
 import com.guidelk.tourism.service.PageService;
 import com.guidelk.tourism.util.DateUtil;
 import com.guidelk.tourism.util.MasterDataStatus;
 import com.guidelk.tourism.vo.PageVo;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PageServiceImpl implements PageService {
@@ -28,6 +29,7 @@ public class PageServiceImpl implements PageService {
     private final PageRepository pageRepository;
     private final ModuleRepository moduleRepository;
     private final AuthorityRepository authorityRepository;
+    private final UserRepository userRepository;
     private final Logger logger = LoggerFactory.getLogger(PageServiceImpl.class);
 
     @PersistenceContext
@@ -36,10 +38,12 @@ public class PageServiceImpl implements PageService {
     @Autowired
     public PageServiceImpl(PageRepository pageRepository,
                            ModuleRepository moduleRepository,
-                           AuthorityRepository authorityRepository) {
+                           AuthorityRepository authorityRepository,
+                           UserRepository userRepository) {
         this.pageRepository = pageRepository;
         this.moduleRepository = moduleRepository;
         this.authorityRepository = authorityRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -70,7 +74,7 @@ public class PageServiceImpl implements PageService {
         Optional<Page> dbPage = this.pageRepository.findById(page.getPageId());
         Optional<Module> module = this.moduleRepository.findById(page.getModuleId());
         if (dbPage.isPresent()) {
-            if(dbPage.get().getAuthorities().size() > 0){
+            if (dbPage.get().getAuthorities().size() > 0) {
                 for (Authority authority : page.getAuthorities()) {
                     Authority dbAuthority = this.authorityRepository.findByAuthorityNameAndStatus(authority.getAuthorityName(), MasterDataStatus.APPROVED.getStatusSeq());
                     if (dbAuthority == null) {
@@ -80,7 +84,7 @@ public class PageServiceImpl implements PageService {
                         page.getAuthorities().add(authority);
                     }
                 }
-            }else {
+            } else {
                 for (Authority authority : page.getAuthorities()) {
                     authority.setStatus(MasterDataStatus.APPROVED.getStatusSeq());
                     authority.setAuthorityName("ROLE_" + module.get().getUrlPattern() + "@" + page.getUrlPattern() + "_" + authority.getAuthorityName());
@@ -117,18 +121,15 @@ public class PageServiceImpl implements PageService {
     }
 
     @Override
-    public List<Page> getPagesByModule(Integer moduleId) {
+    public List<Page> getPagesByModule(Integer moduleId, Integer userId) {
         List<Page> pages = new ArrayList<>();
         try {
-            JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
-            QPage qPage = QPage.page;
-
-            pages = queryFactory.select(qPage).distinct()
-                    .from(qPage)
-                    .where(qPage.moduleId.eq(moduleId))
-                    .where(qPage.status.notIn(MasterDataStatus.DELETED.getStatusSeq()))
-                    .orderBy(qPage.orderIndex.asc())
-                    .fetch();
+            pages = this.userRepository.findById(userId).get().getRoles()
+                    .stream().flatMap(role -> role.getPages().stream())
+                    .filter(page -> page.getModuleId().equals(moduleId)
+                            && page.getStatus().equals(MasterDataStatus.APPROVED.getStatusSeq()))
+                    .sorted(Comparator.comparingInt(Page::getOrderIndex))
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

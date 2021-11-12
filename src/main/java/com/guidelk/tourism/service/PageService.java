@@ -17,7 +17,7 @@ public interface PageService {
 
     ResponseEntity<Page> deletePage(Integer pageId);
 
-    List<Page> getPagesByModule(Integer moduleId);
+    List<Page> getPagesByModule(Integer moduleId, Integer userId);
 
     List<Page> getPageList();
 

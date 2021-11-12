@@ -38,7 +38,7 @@ public class User extends SharedModel {
     }
 
     @Basic
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false)
     public String getUserName() {
         return userName;
     }
@@ -48,7 +48,7 @@ public class User extends SharedModel {
     }
 
     @Basic
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, updatable = false)
     public String getPassword() {
         return password;
     }
@@ -58,7 +58,7 @@ public class User extends SharedModel {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -107,7 +107,7 @@ public class User extends SharedModel {
         this.organization = organization;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")

@@ -47,7 +47,7 @@ public class PageController {
     }
 
     @GetMapping("/getPageList")
-    @PreAuthorize("hasRole('ROLE_config@module_VIEW')")
+    @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
     public List<Page> getPageList() {
         return this.pageService.getPageList();
     }
@@ -60,8 +60,9 @@ public class PageController {
 
     @GetMapping("/getPagesByModule")
     @PreAuthorize("hasRole('ROLE_config@page_VIEW')")
-    public List<Page> getPagesByModule(@RequestParam("moduleId") Integer moduleId) {
-        return this.pageService.getPagesByModule(moduleId);
+    public List<Page> getPagesByModule(@RequestParam("moduleId") Integer moduleId,
+                                       @RequestParam("userId") Integer userId) {
+        return this.pageService.getPagesByModule(moduleId,userId);
     }
 
     @GetMapping(params = "pageId")

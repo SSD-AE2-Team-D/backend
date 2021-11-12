@@ -20,6 +20,8 @@ public interface RoleService {
 
     Set<Page> getPagesByRoleId(Integer roleId);
 
+    List<Role> getRoleList();
+
     List<Role> roleSearch(RoleVo roleVo);
 
 }

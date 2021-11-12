@@ -1,6 +1,6 @@
 package com.guidelk.tourism.controller;
 
-import com.guidelk.tourism.entity.Authority;
+
 import com.guidelk.tourism.entity.Page;
 import com.guidelk.tourism.entity.Role;
 import com.guidelk.tourism.service.RoleService;
@@ -43,6 +43,12 @@ public class RoleController {
     @PreAuthorize("hasRole('ROLE_config@role_DELETE')")
     public ResponseEntity<Role> deleteRole(@PathVariable("roleId") Integer roleId) {
         return this.roleService.deleteRole(roleId);
+    }
+
+    @GetMapping("/getRoleList")
+    @PreAuthorize("hasRole('ROLE_config@role_VIEW')")
+    public List<Role> getRoleList() {
+        return this.roleService.getRoleList();
     }
 
     @PostMapping("/roleSearch")

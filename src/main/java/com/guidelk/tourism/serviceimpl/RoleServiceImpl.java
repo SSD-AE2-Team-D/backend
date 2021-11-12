@@ -84,6 +84,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> getRoleList() {
+        return this.roleRepository.findByStatus(MasterDataStatus.APPROVED.getStatusSeq());
+    }
+
+    @Override
     public List<Role> roleSearch(RoleVo roleVo) {
         List<Role> roleList = new ArrayList<>();
         try {
