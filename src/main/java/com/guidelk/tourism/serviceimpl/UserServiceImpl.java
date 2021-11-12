@@ -18,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -27,9 +25,6 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Logger logger = LoggerFactory.getLogger(AuthorityServiceImpl.class);
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {

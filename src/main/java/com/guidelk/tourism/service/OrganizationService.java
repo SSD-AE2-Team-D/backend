@@ -1,9 +1,7 @@
 package com.guidelk.tourism.service;
 
 import com.guidelk.tourism.entity.Organization;
-import com.guidelk.tourism.entity.Role;
 import com.guidelk.tourism.vo.OrganizationVo;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 

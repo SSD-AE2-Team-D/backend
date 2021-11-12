@@ -17,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,9 +29,6 @@ public class PageServiceImpl implements PageService {
     private final AuthorityRepository authorityRepository;
     private final UserRepository userRepository;
     private final Logger logger = LoggerFactory.getLogger(PageServiceImpl.class);
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired
     public PageServiceImpl(PageRepository pageRepository,

@@ -10,7 +10,6 @@ import com.guidelk.tourism.auth.payload.response.TokenRefreshResponse;
 import com.guidelk.tourism.auth.security.jwt.JwtUtils;
 import com.guidelk.tourism.entity.RefreshToken;
 import com.guidelk.tourism.entity.User;
-import com.guidelk.tourism.repository.RefreshTokenRepository;
 import com.guidelk.tourism.repository.UserRepository;
 import com.guidelk.tourism.service.JwtLoginService;
 import com.guidelk.tourism.service.RefreshTokenService;
@@ -20,15 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class JwtLoginServiceImpl implements JwtLoginService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
     private final RefreshTokenService refreshTokenService;
 
@@ -38,12 +34,10 @@ public class JwtLoginServiceImpl implements JwtLoginService {
     @Autowired
     public JwtLoginServiceImpl(AuthenticationManager authenticationManager,
                                JwtUtils jwtUtils,
-                               RefreshTokenRepository refreshTokenRepository,
                                UserRepository userRepository,
                                RefreshTokenService refreshTokenService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
-        this.refreshTokenRepository = refreshTokenRepository;
         this.userRepository = userRepository;
         this.refreshTokenService = refreshTokenService;
     }

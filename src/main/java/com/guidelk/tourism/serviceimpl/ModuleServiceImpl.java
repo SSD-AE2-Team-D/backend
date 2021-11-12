@@ -1,6 +1,9 @@
 package com.guidelk.tourism.serviceimpl;
 
-import com.guidelk.tourism.entity.*;
+import com.guidelk.tourism.entity.Module;
+import com.guidelk.tourism.entity.Page;
+import com.guidelk.tourism.entity.QModule;
+import com.guidelk.tourism.entity.User;
 import com.guidelk.tourism.repository.ModuleRepository;
 import com.guidelk.tourism.repository.UserRepository;
 import com.guidelk.tourism.service.ModuleService;
@@ -16,8 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,9 +32,6 @@ public class ModuleServiceImpl implements ModuleService {
     private final ModuleRepository moduleRepository;
     private final UserRepository userRepository;
     private final Logger logger = LoggerFactory.getLogger(ModuleServiceImpl.class);
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired
     public ModuleServiceImpl(ModuleRepository moduleRepository,

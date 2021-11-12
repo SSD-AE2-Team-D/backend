@@ -2,7 +2,6 @@ package com.guidelk.tourism.serviceimpl;
 
 import com.guidelk.tourism.auth.exception.TokenRefreshException;
 import com.guidelk.tourism.entity.RefreshToken;
-import com.guidelk.tourism.entity.User;
 import com.guidelk.tourism.repository.RefreshTokenRepository;
 import com.guidelk.tourism.repository.UserRepository;
 import com.guidelk.tourism.service.RefreshTokenService;

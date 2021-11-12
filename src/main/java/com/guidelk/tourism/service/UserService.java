@@ -1,6 +1,5 @@
 package com.guidelk.tourism.service;
 
-import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.entity.Role;
 import com.guidelk.tourism.entity.User;
 import com.guidelk.tourism.vo.UserVo;

@@ -1,18 +1,12 @@
 package com.guidelk.tourism.controller;
 
 import com.guidelk.tourism.entity.Authority;
-import com.guidelk.tourism.entity.Module;
 import com.guidelk.tourism.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
