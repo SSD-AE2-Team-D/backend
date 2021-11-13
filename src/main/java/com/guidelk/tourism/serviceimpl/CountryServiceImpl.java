@@ -82,11 +82,11 @@ public class CountryServiceImpl implements CountryService {
             QCountry qCountry = QCountry.country;
             BooleanBuilder builder = new BooleanBuilder();
             if (countryVo.getCountryName() != null) {
-                builder.and(qCountry.countryName.contains(countryVo.getCountryName()));
+                builder.and(qCountry.countryName.containsIgnoreCase(countryVo.getCountryName()));
             }
 
             if (countryVo.getCountryCode() != null) {
-                builder.and(qCountry.countryCode.contains(countryVo.getCountryCode()));
+                builder.and(qCountry.countryCode.containsIgnoreCase(countryVo.getCountryCode()));
             }
 
             if (countryVo.getStatus() != null) {
