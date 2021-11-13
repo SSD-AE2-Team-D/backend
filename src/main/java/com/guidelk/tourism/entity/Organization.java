@@ -107,7 +107,7 @@ public class Organization extends SharedModel {
         this.addressBook = addressBook;
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "organization_modules",
             joinColumns = @JoinColumn(name = "organization_id"),
             inverseJoinColumns = @JoinColumn(name = "module_id")

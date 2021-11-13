@@ -15,12 +15,17 @@ public class AddressBook extends SharedModel {
     private Integer addressBookId;
     private String addressOne;
     private String addressTwo;
+    private Integer countryId;
+    private Integer locationId;
     private String postalCode;
     private String fax;
     private String email;
     private String telephone;
     private String mobile;
     private String website;
+
+    private Country country;
+    private Location location;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_BOOK_G1")
@@ -52,6 +57,26 @@ public class AddressBook extends SharedModel {
 
     public void setAddressTwo(String addressTwo) {
         this.addressTwo = addressTwo;
+    }
+
+    @Basic
+    @Column(name = "country_id", nullable = false)
+    public Integer getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
+    }
+
+    @Basic
+    @Column(name = "location_id", nullable = false)
+    public Integer getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(Integer locationId) {
+        this.locationId = locationId;
     }
 
     @Basic
@@ -112,5 +137,25 @@ public class AddressBook extends SharedModel {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "country_id", insertable = false, updatable = false)
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "location_id", insertable = false, updatable = false)
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
