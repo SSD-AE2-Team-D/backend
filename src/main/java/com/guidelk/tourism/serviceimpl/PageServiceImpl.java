@@ -148,7 +148,7 @@ public class PageServiceImpl implements PageService {
             QPage qPage = QPage.page;
             BooleanBuilder builder = new BooleanBuilder();
             if (pageVo.getPageName() != null) {
-                builder.and(qPage.pageName.contains(pageVo.getPageName()));
+                builder.and(qPage.pageName.containsIgnoreCase(pageVo.getPageName()));
             }
             if (pageVo.getModuleId() != null) {
                 builder.and(qPage.moduleId.eq(pageVo.getModuleId()));

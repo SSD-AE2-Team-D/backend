@@ -90,11 +90,11 @@ public class LocationServiceImpl implements LocationService {
             BooleanBuilder builder = new BooleanBuilder();
 
             if (locationVo.getLocationName() != null) {
-                builder.and(qLocation.locationName.contains(locationVo.getLocationName()));
+                builder.and(qLocation.locationName.containsIgnoreCase(locationVo.getLocationName()));
             }
 
             if (locationVo.getLocationCode() != null) {
-                builder.and(qLocation.locationCode.contains(locationVo.getLocationCode()));
+                builder.and(qLocation.locationCode.containsIgnoreCase(locationVo.getLocationCode()));
             }
 
             if (locationVo.getCountryId() != null) {

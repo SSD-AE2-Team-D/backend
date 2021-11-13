@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
             BooleanBuilder builder = new BooleanBuilder();
             builder.and(qUser.organizationId.eq(userVo.getOrganizationId()));
             if (userVo.getUserName() != null) {
-                builder.and(qUser.userName.contains(userVo.getUserName()));
+                builder.and(qUser.userName.containsIgnoreCase(userVo.getUserName()));
             }
             if (userVo.getStatus() != null) {
                 builder.and(qUser.status.eq(userVo.getStatus()));

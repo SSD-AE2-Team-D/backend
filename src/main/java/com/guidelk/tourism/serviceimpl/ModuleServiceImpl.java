@@ -150,10 +150,10 @@ public class ModuleServiceImpl implements ModuleService {
             BooleanBuilder builder = new BooleanBuilder();
             builder.and(qModule.organizationId.eq(moduleVo.getOrganizationId()));
             if (moduleVo.getModuleName() != null) {
-                builder.and(qModule.moduleName.contains(moduleVo.getModuleName()));
+                builder.and(qModule.moduleName.containsIgnoreCase(moduleVo.getModuleName()));
             }
             if (moduleVo.getModuleCode() != null) {
-                builder.and(qModule.moduleCode.contains(moduleVo.getModuleCode()));
+                builder.and(qModule.moduleCode.containsIgnoreCase(moduleVo.getModuleCode()));
             }
             if (moduleVo.getStatus() != null) {
                 builder.and(qModule.status.eq(moduleVo.getStatus()));

@@ -95,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
             QRole qRole = QRole.role;
             BooleanBuilder builder = new BooleanBuilder();
             if (roleVo.getRoleName() != null) {
-                builder.and(qRole.roleName.contains(roleVo.getRoleName()));
+                builder.and(qRole.roleName.containsIgnoreCase(roleVo.getRoleName()));
             }
             if (roleVo.getStatus() != null) {
                 builder.and(qRole.status.eq(roleVo.getStatus()));

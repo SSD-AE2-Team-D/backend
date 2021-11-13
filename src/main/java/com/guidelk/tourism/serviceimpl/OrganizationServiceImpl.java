@@ -80,6 +80,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         ResponseEntity<Organization> responseEntity;
         if (dbOrganization.isPresent()) {
             dbOrganization.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
+            dbOrganization.get().getAddressBook().setStatus(MasterDataStatus.DELETED.getStatusSeq());
             this.organizationRepository.save(dbOrganization.get());
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
         } else {
@@ -95,7 +96,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             QOrganization qOrganization = QOrganization.organization;
             BooleanBuilder builder = new BooleanBuilder();
             if (organizationVo.getOrganizationName() != null) {
-                builder.and(qOrganization.organizationName.contains(organizationVo.getOrganizationName()));
+                builder.and(qOrganization.organizationName.containsIgnoreCase(organizationVo.getOrganizationName()));
             }
             if (organizationVo.getStatus() != null) {
                 builder.and(qOrganization.status.eq(organizationVo.getStatus()));
