@@ -112,7 +112,7 @@ public class CustomerServiceImpl implements CustomerService {
             }
             customerList = (List<Customer>) this.customerRepository.findAll(builder);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Customer Search Error", e.getMessage());
         }
         return customerList;
     }

@@ -1,13 +1,11 @@
 package com.guidelk.tourism.controller;
 
-import com.guidelk.tourism.entity.Country;
 import com.guidelk.tourism.entity.Customer;
 import com.guidelk.tourism.service.CustomerService;
 import com.guidelk.tourism.util.CustomerType;
 import com.guidelk.tourism.util.GenderType;
 import com.guidelk.tourism.util.MasterDataStatus;
 import com.guidelk.tourism.util.TitleType;
-import com.guidelk.tourism.vo.CountryVo;
 import com.guidelk.tourism.vo.CustomerVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
