@@ -1,11 +1,19 @@
 package com.guidelk.tourism.controller;
 
+import com.guidelk.tourism.entity.Hotel;
 import com.guidelk.tourism.service.HotelService;
+import com.guidelk.tourism.util.HotelCategoryType;
 import com.guidelk.tourism.util.MasterDataStatus;
+import com.guidelk.tourism.util.RoomFeatureType;
+import com.guidelk.tourism.util.StarGrading;
+import com.guidelk.tourism.vo.HotelVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -17,6 +25,48 @@ public class HotelController {
     @Autowired
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_CREATE')")
+    public ResponseEntity createHotel(@Valid @RequestBody Hotel hotel) {
+        return this.hotelService.createHotel(hotel);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_UPDATE')")
+    public ResponseEntity<Hotel> updateHotel(@Valid @RequestBody Hotel hotel) {
+        return this.hotelService.updateHotel(hotel);
+    }
+
+    @DeleteMapping("{hotelId}")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel__DELETE')")
+    public ResponseEntity<Hotel> deleteHotel(@PathVariable("hotelId") Integer hotelId) {
+        return this.hotelService.deleteHotel(hotelId);
+    }
+
+    @GetMapping("/getHotelCategoryTypeList")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_VIEW')")
+    public List<HotelCategoryType> getHotelCategoryTypeList() {
+        return Arrays.asList(HotelCategoryType.values());
+    }
+
+    @GetMapping("/getStarGradingList")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_VIEW')")
+    public List<StarGrading> getStarGradingList() {
+        return Arrays.asList(StarGrading.values());
+    }
+
+    @GetMapping("/getRoomFeatureTypeList")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_VIEW')")
+    public List<RoomFeatureType> getRoomFeatureTypeList() {
+        return Arrays.asList(RoomFeatureType.values());
+    }
+
+    @PostMapping("/hotelSearch")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_VIEW')")
+    public List<Hotel> hotelSearch(@RequestBody HotelVo hotelVo) {
+        return this.hotelService.hotelSearch(hotelVo);
     }
 
     @GetMapping("/getMasterStatusList")

@@ -1,27 +1,40 @@
 package com.guidelk.tourism.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.guidelk.tourism.util.CustomerType;
+import com.guidelk.tourism.util.HotelCategoryType;
+import com.guidelk.tourism.util.StarGrading;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "hotel", schema = "tourism")
-public class Hotel extends SharedModel{
+public class Hotel extends SharedModel {
     private Integer hotelId;
     private String hotelName;
     private Integer categoryId;
     private Integer starGradingId;
     private Integer roomCount;
     private Date dateOfStart;
+    private Integer organizationId;
+    private String hotelDescription;
     private Integer addressBookId;
 
     private AddressBook addressBook;
+
+    private Set<RoomType> roomTypes = new HashSet<>();
+
+    private String categoryDescription;
+    private String starGradingDescription;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HOTEL_G1")
@@ -53,16 +66,22 @@ public class Hotel extends SharedModel{
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+        if (categoryId != null) {
+            this.setCategoryDescription(HotelCategoryType.findOne(categoryId).getCategoryDescription());
+        }
     }
 
     @Basic
-    @Column(name = "star_grading_id", nullable = false)
+    @Column(name = "star_grading_id")
     public Integer getStarGradingId() {
         return starGradingId;
     }
 
     public void setStarGradingId(Integer starGradingId) {
         this.starGradingId = starGradingId;
+        if (starGradingId != null) {
+            this.setStarGradingDescription(StarGrading.findOne(starGradingId).getStarGradingDescription());
+        }
     }
 
     @Basic
@@ -85,6 +104,26 @@ public class Hotel extends SharedModel{
         this.dateOfStart = dateOfStart;
     }
 
+    @Basic
+    @Column(name = "organization_id", nullable = false)
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    @Basic
+    @Column(name = "hotel_description")
+    public String getHotelDescription() {
+        return hotelDescription;
+    }
+
+    public void setHotelDescription(String hotelDescription) {
+        this.hotelDescription = hotelDescription;
+    }
+
     @Transient
     public Integer getAddressBookId() {
         return addressBookId;
@@ -102,5 +141,34 @@ public class Hotel extends SharedModel{
 
     public void setAddressBook(AddressBook addressBook) {
         this.addressBook = addressBook;
+    }
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "hotel_id")
+    @Where(clause = "status=2")
+    public Set<RoomType> getRoomTypes() {
+        return roomTypes;
+    }
+
+    public void setRoomTypes(Set<RoomType> roomTypes) {
+        this.roomTypes = roomTypes;
+    }
+
+    @Transient
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
+    }
+
+    @Transient
+    public String getStarGradingDescription() {
+        return starGradingDescription;
+    }
+
+    public void setStarGradingDescription(String starGradingDescription) {
+        this.starGradingDescription = starGradingDescription;
     }
 }

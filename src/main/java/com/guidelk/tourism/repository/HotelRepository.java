@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Integer>, EntityGraphJpaRepository<Hotel, Integer>, EntityGraphQuerydslPredicateExecutor<Hotel> {
+    Hotel findByHotelNameContainsIgnoreCaseAndAddressBook_CountryIdAndStatusNot(String hotelName, Integer countryId, Integer status);
 }
