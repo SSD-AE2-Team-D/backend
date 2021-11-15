@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity createCustomer(Customer customer) {
         ResponseEntity responseEntity;
         if (customer.getAddressBook() != null) {
@@ -41,6 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Customer> updateCustomer(Customer customer) {
         ResponseEntity<Customer> responseEntity;
         Optional<Customer> dbCustomer = this.customerRepository.findById(customer.getCustomerId());
@@ -54,6 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Customer> deleteCustomer(Integer customerId) {
         Optional<Customer> dbCustomer = this.customerRepository.findById(customerId);
         ResponseEntity<Customer> responseEntity;

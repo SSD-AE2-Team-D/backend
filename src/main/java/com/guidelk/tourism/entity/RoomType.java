@@ -21,6 +21,8 @@ public class RoomType extends SharedModel {
 
     private Set<RoomFeature> roomFeatures = new HashSet<>();
 
+    private Integer hotelId;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROOM_TYPE_G1")
     @SequenceGenerator(name = "ROOM_TYPE_G1", sequenceName = "room_type_id", schema = "tourism", allocationSize = 1)
@@ -51,6 +53,16 @@ public class RoomType extends SharedModel {
 
     public void setRoomTypeDescription(String roomTypeDescription) {
         this.roomTypeDescription = roomTypeDescription;
+    }
+
+    @Basic
+    @Column(name = "hotel_id", nullable = false)
+    public Integer getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
     }
 
     @OneToMany(cascade = CascadeType.PERSIST)

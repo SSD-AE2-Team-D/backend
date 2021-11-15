@@ -17,6 +17,8 @@ public class RoomFeature extends SharedModel {
     private String feature;
     private String featureDescription;
 
+    private Integer roomTypeId;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROOM_FEATURE_G1")
     @SequenceGenerator(name = "ROOM_FEATURE_G1", sequenceName = "room_type_id", schema = "tourism", allocationSize = 1)
@@ -57,5 +59,15 @@ public class RoomFeature extends SharedModel {
 
     public void setFeatureDescription(String featureDescription) {
         this.featureDescription = featureDescription;
+    }
+
+    @Basic
+    @Column(name = "room_type_id", nullable = false)
+    public Integer getRoomTypeId() {
+        return roomTypeId;
+    }
+
+    public void setRoomTypeId(Integer roomTypeId) {
+        this.roomTypeId = roomTypeId;
     }
 }

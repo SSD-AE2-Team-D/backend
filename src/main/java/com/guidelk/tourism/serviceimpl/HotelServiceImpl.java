@@ -1,9 +1,12 @@
 package com.guidelk.tourism.serviceimpl;
 
-import com.guidelk.tourism.entity.Customer;
 import com.guidelk.tourism.entity.Hotel;
 import com.guidelk.tourism.entity.QHotel;
+import com.guidelk.tourism.entity.RoomFeature;
+import com.guidelk.tourism.entity.RoomType;
 import com.guidelk.tourism.repository.HotelRepository;
+import com.guidelk.tourism.repository.RoomFeatureRepository;
+import com.guidelk.tourism.repository.RoomTypeRepository;
 import com.guidelk.tourism.service.HotelService;
 import com.guidelk.tourism.util.MasterDataStatus;
 import com.guidelk.tourism.vo.HotelVo;
@@ -15,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,15 +26,19 @@ import java.util.Optional;
 @Service
 public class HotelServiceImpl implements HotelService {
     private final HotelRepository hotelRepository;
+    private final RoomTypeRepository roomTypeRepository;
     private final Logger logger = LoggerFactory.getLogger(HotelServiceImpl.class);
 
 
     @Autowired
-    public HotelServiceImpl(HotelRepository hotelRepository) {
+    public HotelServiceImpl(HotelRepository hotelRepository,
+                            RoomTypeRepository roomTypeRepository) {
         this.hotelRepository = hotelRepository;
+        this.roomTypeRepository = roomTypeRepository;
     }
 
     @Override
+    @Transactional
     public ResponseEntity createHotel(Hotel hotel) {
         ResponseEntity responseEntity;
         Hotel dbHotel = this.hotelRepository.findByHotelNameContainsIgnoreCaseAndAddressBook_CountryIdAndStatusNot(hotel.getHotelName(), hotel.getAddressBook().getCountryId(), MasterDataStatus.DELETED.getStatusSeq());
@@ -52,6 +60,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Hotel> updateHotel(Hotel hotel) {
         ResponseEntity<Hotel> responseEntity;
         Optional<Hotel> dbHotel = this.hotelRepository.findById(hotel.getHotelId());
@@ -70,6 +79,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Hotel> deleteHotel(Integer hotelId) {
         ResponseEntity<Hotel> responseEntity;
         Optional<Hotel> dbHotel = this.hotelRepository.findById(hotelId);
@@ -82,6 +92,22 @@ public class HotelServiceImpl implements HotelService {
             dbHotel.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
             dbHotel.get().getAddressBook().setStatus(MasterDataStatus.DELETED.getStatusSeq());
             this.hotelRepository.save(dbHotel.get());
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<RoomType> deleteRoomTypeLineItem(Integer roomTypeId) {
+        ResponseEntity<RoomType> responseEntity;
+        Optional<RoomType> dbRoomType = this.roomTypeRepository.findById(roomTypeId);
+        if (dbRoomType.isPresent()) {
+            dbRoomType.get().getRoomFeatures().forEach(roomFeature -> roomFeature.setStatus(MasterDataStatus.DELETED.getStatusSeq()));
+            dbRoomType.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
+            this.roomTypeRepository.save(dbRoomType.get());
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
         } else {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);

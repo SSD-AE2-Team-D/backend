@@ -1,6 +1,8 @@
 package com.guidelk.tourism.controller;
 
 import com.guidelk.tourism.entity.Hotel;
+import com.guidelk.tourism.entity.RoomFeature;
+import com.guidelk.tourism.entity.RoomType;
 import com.guidelk.tourism.service.HotelService;
 import com.guidelk.tourism.util.HotelCategoryType;
 import com.guidelk.tourism.util.MasterDataStatus;
@@ -40,9 +42,15 @@ public class HotelController {
     }
 
     @DeleteMapping("{hotelId}")
-    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel__DELETE')")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_DELETE')")
     public ResponseEntity<Hotel> deleteHotel(@PathVariable("hotelId") Integer hotelId) {
         return this.hotelService.deleteHotel(hotelId);
+    }
+
+    @PutMapping("{roomTypeId}")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_DELETE')")
+    public ResponseEntity<RoomType> deleteRoomTypeLineItem(@PathVariable("roomTypeId") Integer roomTypeId) {
+        return this.hotelService.deleteRoomTypeLineItem(roomTypeId);
     }
 
     @GetMapping("/getHotelCategoryTypeList")
