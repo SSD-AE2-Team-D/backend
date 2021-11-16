@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public interface HotelService {
@@ -19,6 +20,10 @@ public interface HotelService {
 
     ResponseEntity<RoomType> deleteRoomTypeLineItem(Integer roomTypeId);
 
+    List<Hotel> getHotelList(Integer organizationId);
+
+    Set<RoomType> getRoomTypeListHotelWise(Integer hotelId);
+
     List<Hotel> hotelSearch(HotelVo hotelVo);
 
-}
+    }

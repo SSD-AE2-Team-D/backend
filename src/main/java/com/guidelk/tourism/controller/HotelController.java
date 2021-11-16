@@ -4,10 +4,7 @@ import com.guidelk.tourism.entity.Hotel;
 import com.guidelk.tourism.entity.RoomFeature;
 import com.guidelk.tourism.entity.RoomType;
 import com.guidelk.tourism.service.HotelService;
-import com.guidelk.tourism.util.HotelCategoryType;
-import com.guidelk.tourism.util.MasterDataStatus;
-import com.guidelk.tourism.util.RoomFeatureType;
-import com.guidelk.tourism.util.StarGrading;
+import com.guidelk.tourism.util.*;
 import com.guidelk.tourism.vo.HotelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -51,6 +49,18 @@ public class HotelController {
     @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_DELETE')")
     public ResponseEntity<RoomType> deleteRoomTypeLineItem(@PathVariable("roomTypeId") Integer roomTypeId) {
         return this.hotelService.deleteRoomTypeLineItem(roomTypeId);
+    }
+
+    @GetMapping("/getHotelList")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_VIEW')")
+    public List<Hotel> getHotelList(@RequestParam("organizationId") Integer organizationId) {
+        return this.hotelService.getHotelList(organizationId);
+    }
+
+    @GetMapping("/getRoomTypeListHotelWise")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@hotel_VIEW')")
+    public Set<RoomType> getRoomTypeListHotelWise(@RequestParam("hotelId") Integer hotelId) {
+        return this.hotelService.getRoomTypeListHotelWise(hotelId);
     }
 
     @GetMapping("/getHotelCategoryTypeList")

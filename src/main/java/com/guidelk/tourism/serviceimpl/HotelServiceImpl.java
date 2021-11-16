@@ -2,10 +2,8 @@ package com.guidelk.tourism.serviceimpl;
 
 import com.guidelk.tourism.entity.Hotel;
 import com.guidelk.tourism.entity.QHotel;
-import com.guidelk.tourism.entity.RoomFeature;
 import com.guidelk.tourism.entity.RoomType;
 import com.guidelk.tourism.repository.HotelRepository;
-import com.guidelk.tourism.repository.RoomFeatureRepository;
 import com.guidelk.tourism.repository.RoomTypeRepository;
 import com.guidelk.tourism.service.HotelService;
 import com.guidelk.tourism.util.MasterDataStatus;
@@ -22,13 +20,13 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class HotelServiceImpl implements HotelService {
     private final HotelRepository hotelRepository;
     private final RoomTypeRepository roomTypeRepository;
     private final Logger logger = LoggerFactory.getLogger(HotelServiceImpl.class);
-
 
     @Autowired
     public HotelServiceImpl(HotelRepository hotelRepository,
@@ -87,7 +85,6 @@ public class HotelServiceImpl implements HotelService {
             if (!dbHotel.get().getRoomTypes().isEmpty()) {
                 dbHotel.get().getRoomTypes().forEach(roomType -> roomType.setStatus(MasterDataStatus.DELETED.getStatusSeq()));
                 dbHotel.get().getRoomTypes().forEach(roomType -> roomType.getRoomFeatures().forEach(roomFeature -> roomFeature.setStatus(MasterDataStatus.DELETED.getStatusSeq())));
-
             }
             dbHotel.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
             dbHotel.get().getAddressBook().setStatus(MasterDataStatus.DELETED.getStatusSeq());
@@ -113,6 +110,16 @@ public class HotelServiceImpl implements HotelService {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @Override
+    public List<Hotel> getHotelList(Integer organizationId) {
+        return this.hotelRepository.findByOrganizationIdAndStatus(organizationId, MasterDataStatus.APPROVED.getStatusSeq());
+    }
+
+    @Override
+    public Set<RoomType> getRoomTypeListHotelWise(Integer hotelId) {
+        return this.hotelRepository.findById(hotelId).get().getRoomTypes();
     }
 
     @Override
@@ -143,7 +150,7 @@ public class HotelServiceImpl implements HotelService {
             }
             hotelList = (List<Hotel>) this.hotelRepository.findAll(builder);
         } catch (Exception e) {
-            e.printStackTrace();
+           logger.error("Hotel Search Error", e.getMessage());
         }
         return hotelList;
 
