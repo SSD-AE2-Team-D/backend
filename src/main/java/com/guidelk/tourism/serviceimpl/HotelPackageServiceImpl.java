@@ -1,6 +1,7 @@
 package com.guidelk.tourism.serviceimpl;
 
 import com.guidelk.tourism.entity.HotelPackage;
+import com.guidelk.tourism.entity.HotelPackageActivity;
 import com.guidelk.tourism.entity.QHotelPackage;
 import com.guidelk.tourism.repository.HotelPackageRepository;
 import com.guidelk.tourism.service.HotelPackageService;
@@ -42,7 +43,7 @@ public class HotelPackageServiceImpl implements HotelPackageService {
     @Override
     public ResponseEntity<HotelPackage> updateHotelPackage(HotelPackage hotelPackage) {
         ResponseEntity<HotelPackage> responseEntity;
-        Optional<HotelPackage> dbHotelPackage = this.hotelPackageRepository.findById(hotelPackage.getHotelId());
+        Optional<HotelPackage> dbHotelPackage = this.hotelPackageRepository.findById(hotelPackage.getHotelPackageId());
         if (dbHotelPackage.isPresent()) {
             this.hotelPackageRepository.save(hotelPackage);
             responseEntity = new ResponseEntity<>(hotelPackage, HttpStatus.OK);
@@ -61,7 +62,7 @@ public class HotelPackageServiceImpl implements HotelPackageService {
             dbHotelPackage.get().setStatus(MasterDataStatus.DELETED.getStatusSeq());
             this.hotelPackageRepository.save(dbHotelPackage.get());
             responseEntity = new ResponseEntity<>(HttpStatus.OK);
-        }else {
+        } else {
             responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
