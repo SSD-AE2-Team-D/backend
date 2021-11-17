@@ -1,9 +1,10 @@
 package com.guidelk.tourism.serviceimpl;
 
 import com.guidelk.tourism.entity.HotelPackage;
-import com.guidelk.tourism.entity.HotelPackageActivity;
+import com.guidelk.tourism.entity.PackageFeedback;
 import com.guidelk.tourism.entity.QHotelPackage;
 import com.guidelk.tourism.repository.HotelPackageRepository;
+import com.guidelk.tourism.repository.PackageFeedbackRepository;
 import com.guidelk.tourism.service.HotelPackageService;
 import com.guidelk.tourism.util.DateUtil;
 import com.guidelk.tourism.util.MasterDataStatus;
@@ -24,12 +25,14 @@ import java.util.Optional;
 @Service
 public class HotelPackageServiceImpl implements HotelPackageService {
     private final HotelPackageRepository hotelPackageRepository;
+    private final PackageFeedbackRepository packageFeedbackRepository;
     private final Logger logger = LoggerFactory.getLogger(HotelPackageServiceImpl.class);
 
-
     @Autowired
-    public HotelPackageServiceImpl(HotelPackageRepository hotelPackageRepository) {
+    public HotelPackageServiceImpl(HotelPackageRepository hotelPackageRepository,
+                                   PackageFeedbackRepository packageFeedbackRepository) {
         this.hotelPackageRepository = hotelPackageRepository;
+        this.packageFeedbackRepository = packageFeedbackRepository;
     }
 
     @Override
@@ -37,6 +40,15 @@ public class HotelPackageServiceImpl implements HotelPackageService {
         ResponseEntity responseEntity;
         this.hotelPackageRepository.save(hotelPackage);
         responseEntity = new ResponseEntity<>(hotelPackage, HttpStatus.CREATED);
+        return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity feedback(PackageFeedback packageFeedback) {
+        ResponseEntity responseEntity;
+        packageFeedback.setStatus(MasterDataStatus.APPROVED.getStatusSeq());
+        this.packageFeedbackRepository.save(packageFeedback);
+        responseEntity = new ResponseEntity<>(packageFeedback, HttpStatus.CREATED);
         return responseEntity;
     }
 
@@ -108,4 +120,5 @@ public class HotelPackageServiceImpl implements HotelPackageService {
         return hotelPackageList;
 
     }
-}
+
+   }

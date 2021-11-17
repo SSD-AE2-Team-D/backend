@@ -2,6 +2,7 @@ package com.guidelk.tourism.controller;
 
 
 import com.guidelk.tourism.entity.HotelPackage;
+import com.guidelk.tourism.entity.PackageFeedback;
 import com.guidelk.tourism.service.HotelPackageService;
 import com.guidelk.tourism.util.HotelPackageActivityType;
 import com.guidelk.tourism.util.MasterDataStatus;
@@ -36,6 +37,12 @@ public class HotelPackageController {
     @PreAuthorize("hasRole('ROLE_operationalInfo@package_UPDATE')")
     public ResponseEntity<HotelPackage> updateHotelPackage(@Valid @RequestBody HotelPackage hotelPackage) {
         return this.hotelPackageService.updateHotelPackage(hotelPackage);
+    }
+
+    @PostMapping("/feedback")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@package_VIEW')")
+    public ResponseEntity feedback(@Valid @RequestBody PackageFeedback packageFeedback) {
+        return this.hotelPackageService.feedback(packageFeedback);
     }
 
     @DeleteMapping("{hotelPackageId}")
