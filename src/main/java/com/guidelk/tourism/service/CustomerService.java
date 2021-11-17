@@ -15,5 +15,8 @@ public interface CustomerService {
 
     ResponseEntity<Customer> deleteCustomer(Integer customerId);
 
+    List<Customer> getCustomerList();
+
     List<Customer> customerSearch(CustomerVo customerVo);
+
 }

@@ -1,6 +1,5 @@
 package com.guidelk.tourism.controller;
 
-
 import com.guidelk.tourism.entity.HotelPackage;
 import com.guidelk.tourism.entity.PackageFeedback;
 import com.guidelk.tourism.service.HotelPackageService;
@@ -49,6 +48,12 @@ public class HotelPackageController {
     @PreAuthorize("hasRole('ROLE_operationalInfo@package_DELETE')")
     public ResponseEntity<HotelPackage> deleteHotelPackage(@PathVariable("hotelPackageId") Integer hotelPackageId) {
         return this.hotelPackageService.deleteHotelPackage(hotelPackageId);
+    }
+
+    @GetMapping("/viewFeedBack")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@package_VIEW')")
+    public List<PackageFeedback> viewFeedBack(@RequestParam("packageId") Integer packageId) {
+        return this.hotelPackageService.viewFeedBack(packageId);
     }
 
     @GetMapping("/getHotelActivityTypeList")

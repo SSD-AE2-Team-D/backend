@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ public class HotelPackageServiceImpl implements HotelPackageService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity createHotelPackage(HotelPackage hotelPackage) {
         ResponseEntity responseEntity;
         this.hotelPackageRepository.save(hotelPackage);
@@ -44,6 +46,7 @@ public class HotelPackageServiceImpl implements HotelPackageService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity feedback(PackageFeedback packageFeedback) {
         ResponseEntity responseEntity;
         packageFeedback.setStatus(MasterDataStatus.APPROVED.getStatusSeq());
@@ -53,6 +56,7 @@ public class HotelPackageServiceImpl implements HotelPackageService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<HotelPackage> updateHotelPackage(HotelPackage hotelPackage) {
         ResponseEntity<HotelPackage> responseEntity;
         Optional<HotelPackage> dbHotelPackage = this.hotelPackageRepository.findById(hotelPackage.getHotelPackageId());
@@ -66,6 +70,7 @@ public class HotelPackageServiceImpl implements HotelPackageService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<HotelPackage> deleteHotelPackage(Integer hotelPackageId) {
         ResponseEntity<HotelPackage> responseEntity;
         Optional<HotelPackage> dbHotelPackage = this.hotelPackageRepository.findById(hotelPackageId);
@@ -79,6 +84,11 @@ public class HotelPackageServiceImpl implements HotelPackageService {
         }
 
         return responseEntity;
+    }
+
+    @Override
+    public List<PackageFeedback> viewFeedBack(Integer packageId) {
+        return this.packageFeedbackRepository.findByPackageId(packageId);
     }
 
     @Override

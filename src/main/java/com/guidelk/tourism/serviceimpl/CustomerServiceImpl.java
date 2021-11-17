@@ -73,6 +73,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> getCustomerList() {
+        return this.customerRepository.findByStatus(MasterDataStatus.APPROVED.getStatusSeq());
+    }
+
+    @Override
     public List<Customer> customerSearch(CustomerVo customerVo) {
         List<Customer> customerList = new ArrayList<>();
         try {

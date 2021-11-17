@@ -18,6 +18,8 @@ public interface HotelPackageService {
 
     ResponseEntity<HotelPackage> deleteHotelPackage(Integer hotelPackageId);
 
+    List<PackageFeedback> viewFeedBack(Integer packageId);
+
     List<HotelPackage> hotelPackageSearch(HotelPackageVo hotelPackageVo);
 
 }

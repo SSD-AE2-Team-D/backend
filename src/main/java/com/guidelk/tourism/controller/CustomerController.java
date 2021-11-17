@@ -52,6 +52,12 @@ public class CustomerController {
         return this.customerService.customerSearch(customerVo);
     }
 
+    @GetMapping("/getCustomerList")
+    @PreAuthorize("hasRole('ROLE_operationalInfo@customer_VIEW')")
+    public List<Customer> getCustomerList() {
+        return this.customerService.getCustomerList();
+    }
+
     @GetMapping("/getTitleList")
     @PreAuthorize("hasRole('ROLE_operationalInfo@customer_VIEW')")
     public List<TitleType> getTitleList() {
