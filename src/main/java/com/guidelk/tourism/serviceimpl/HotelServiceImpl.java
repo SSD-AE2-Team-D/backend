@@ -116,7 +116,7 @@ public class HotelServiceImpl implements HotelService {
     public List<Hotel> getHotelList(Integer organizationId) {
         return this.hotelRepository.findByOrganizationIdAndStatus(organizationId, MasterDataStatus.APPROVED.getStatusSeq());
     }
-//Test
+
     @Override
     public Set<RoomType> getRoomTypeListHotelWise(Integer hotelId) {
         return this.hotelRepository.findById(hotelId).get().getRoomTypes();

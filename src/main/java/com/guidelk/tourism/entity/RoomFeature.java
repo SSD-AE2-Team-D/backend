@@ -62,7 +62,7 @@ public class RoomFeature extends SharedModel {
     }
 
     @Basic
-    @Column(name = "room_type_id", nullable = false)
+    @Column(name = "room_type_id")
     public Integer getRoomTypeId() {
         return roomTypeId;
     }
