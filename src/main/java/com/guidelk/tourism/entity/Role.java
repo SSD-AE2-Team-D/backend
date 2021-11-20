@@ -52,7 +52,7 @@ public class Role extends SharedModel {
         this.roleDescription = roleDescription;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+        @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "role_pages",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "page_id")
