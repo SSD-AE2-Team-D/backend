@@ -1,0 +1,94 @@
+13:26:44.732 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+13:26:44.732 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+13:26:44.734 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+13:26:44.734 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+13:26:44.734 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+13:26:44.734 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+13:26:44.734 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+13:26:44.734 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+13:26:44.734 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+13:26:44.734 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+13:26:44.734 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+13:26:44.734 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:25:29.356 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:25:29.356 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:25:29.358 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:25:29.358 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:25:29.358 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:25:29.358 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:25:29.359 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:25:29.359 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:25:29.359 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:25:29.359 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:25:29.359 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:25:29.359 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:28:47.647 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:28:47.647 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:28:47.649 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:28:47.649 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:28:47.649 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:28:47.649 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:28:47.650 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:28:47.650 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:28:47.650 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:28:47.650 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:28:47.650 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:28:47.650 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:30:58.641 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:30:58.641 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:30:58.645 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:30:58.645 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:30:58.645 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:30:58.645 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:30:58.645 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:30:58.645 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:30:58.645 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:30:58.645 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:30:58.645 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:30:58.645 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:35:42.900 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:35:42.900 [http-nio-8080-exec-4] FATAL com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a FATAL log
+22:35:42.903 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:35:42.903 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a ERROR log
+22:35:42.903 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:35:42.903 [http-nio-8080-exec-4] WARN  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a WARN log
+22:35:42.903 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:35:42.903 [http-nio-8080-exec-4] INFO  com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a INFO log
+22:35:42.903 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:35:42.903 [http-nio-8080-exec-4] DEBUG com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a DEBUG log
+22:35:42.903 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+22:35:42.903 [http-nio-8080-exec-4] TRACE com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - This is a TRACE log
+11:25:26.572 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedNo database selected
+11:25:26.572 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedNo database selected
+11:25:58.094 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedTable 'cohort4_db.dehlivery' doesn't exist
+11:25:58.094 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedTable 'cohort4_db.dehlivery' doesn't exist
+11:53:41.792 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedColumn count doesn't match value count at row 1
+11:53:41.792 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedColumn count doesn't match value count at row 1
+11:59:15.563 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedDuplicate entry 'marbel@marbel.com' for key 'tbl_users.email'
+11:59:15.563 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedDuplicate entry 'marbel@marbel.com' for key 'tbl_users.email'
+09:45:28.761 [http-nio-8080-exec-10] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:45:28.761 [http-nio-8080-exec-10] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:45:44.055 [http-nio-8080-exec-1] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:45:44.055 [http-nio-8080-exec-1] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:45:57.750 [http-nio-8080-exec-2] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:45:57.750 [http-nio-8080-exec-2] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:47:24.429 [http-nio-8080-exec-3] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:47:24.429 [http-nio-8080-exec-3] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:47:56.528 [http-nio-8080-exec-6] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:47:56.528 [http-nio-8080-exec-6] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:48:08.191 [http-nio-8080-exec-7] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:48:08.191 [http-nio-8080-exec-7] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:48:27.276 [http-nio-8080-exec-2] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:48:27.276 [http-nio-8080-exec-2] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:48:31.876 [http-nio-8080-exec-5] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:48:31.876 [http-nio-8080-exec-5] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:50:25.679 [http-nio-8080-exec-8] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:50:25.679 [http-nio-8080-exec-8] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:51:06.175 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:51:06.175 [http-nio-8080-exec-4] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:51:08.263 [http-nio-8080-exec-2] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+09:51:08.263 [http-nio-8080-exec-2] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failednull
+11:21:20.168 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedDuplicate entry 'marbel@marbel.com' for key 'tbl_users.email'
+11:21:20.168 [main] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedDuplicate entry 'marbel@marbel.com' for key 'tbl_users.email'
+11:37:35.655 [http-nio-8080-exec-7] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedDuplicate entry 'ron@ron.com' for key 'tbl_users.email'
+11:37:35.655 [http-nio-8080-exec-7] ERROR com.guideLK.guide-lk-docker.serviceimpl.UserServiceImpl - DB_ERROR : connection failedDuplicate entry 'ron@ron.com' for key 'tbl_users.email'
