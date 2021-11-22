@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer>, EntityGraphJpaRepository<Customer, Integer>, EntityGraphQuerydslPredicateExecutor<Customer> {
     List<Customer> findByStatus(Integer status);
+
+    List<Customer> findALL();
 }
