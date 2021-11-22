@@ -1,5 +1,7 @@
 #### Docker Commands
 
+## Note: use Java SDK version 8.0. Any version above that will break the build.
+
 # Todo 
 
 run `docker -v` - to check docker version
@@ -8,7 +10,7 @@ run `docker build -f Dockerfile -t guidelk-docker .` - to generate & build docke
 
 run `docker images` - check available docker images
 
-run `docker run -p 8085:8085 guidelk-docker` - run docker image in port 8085 and initialize springboot
+finally, run `docker compose up` or `docker run -p 8085:8085 guidelk-docker` - run docker image in port 8085 and initialize springboot
 
 
 # Errors encountered
@@ -19,6 +21,7 @@ run `docker run -p 8085:8085 guidelk-docker` - run docker image in port 8085 and
 
 run `mvn clean install` and then follow the steps in **Todo** to initialize **docker**
 
-#### Docker Command Using Docker Compose
-docker compose up
+# Video Implementation on how to set up
+
+link - <https://drive.google.com/drive/folders/1dCt_eariP3iL58OHVIZtDhIul2x3thZv?usp=sharing>
 
