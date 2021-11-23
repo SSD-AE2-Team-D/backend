@@ -23,5 +23,14 @@ run `mvn clean install` and then follow the steps in **Todo** to initialize **do
 
 # Video Implementation on how to set up
 
-link - <https://drive.google.com/drive/folders/1dCt_eariP3iL58OHVIZtDhIul2x3thZv?usp=sharing>
+backend implementation - <https://drive.google.com/drive/folders/1dCt_eariP3iL58OHVIZtDhIul2x3thZv?usp=sharing>
+
+import sqldump file to postgres db - <https://drive.google.com/drive/folders/1YyoHeBH6iKjyUWorc9AvIAtCxpTjRZ1y?usp=sharing>
+
+#### Note: if `tourism` schema in the database is not being created automaticaally then it has to be created manually.
+
+# Login credentials after sqldump import
+
+username - `sachigeeth`
+password - `Test@123`
 
